@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="VERDICT Investigative Case Dossier: Evidence-first public accountability investigation reconciling questions, first-class evidence packets, timelines, entity networks, money trails, and public consistency reviews.">
+  <meta name="author" content="VERDICT Research Desk">
+  <meta property="og:title" content="VERDICT · Investigative Case Dossier">
+  <meta property="og:description" content="Source-backed investigative case page reconciling questions, evidence packets, timelines, entity networks, and open questions.">
+  <meta property="og:type" content="article">
+
+  <link rel="canonical" href="https://www.verdict.is-an.org/case.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>VERDICT · Investigative Case Dossier</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/case.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+</head>
+<body>
+
+  <!-- Top Institutional Utility Bar -->
+  <aside class="top-utility" aria-label="Investigation status">
+    <div class="top-utility-inner">
+      <div class="utility-left">
+        <a href="./" class="live-pill" style="color: var(--ink);">
+          ← Return to VERDICT Home
+        </a>
+        <span class="utility-sep">|</span>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>ACTIVE INVESTIGATION CASE DESK</span>
+      </div>
+      <div class="utility-right" style="display: flex; align-items: center; gap: 12px;">
+        <label for="case-switcher-select" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);">SWITCH CASE:</label>
+        <select id="case-switcher-select" style="font-family: var(--font-mono); font-size: 0.76rem; padding: 4px 8px; border: 1px solid var(--border); border-radius: var(--radius-xs); background: var(--surface); color: var(--ink);">
+          <!-- Injected dynamically by case.js -->
+        </select>
+        <span class="utility-sep">|</span>
+        <a href="./methodology.html">Methodology</a>
+        <a href="./limitations.html">Limitations</a>
+        <button type="button" id="top-challenge-btn" class="challenge-pill-btn">
+          Challenge Entry
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Editorial Masthead (Compact) -->
+  <header class="masthead" style="padding: 24px 24px 18px;">
+    <div class="masthead-inner">
+      <div class="masthead-topline">
+        <span>PUBLIC ACCOUNTABILITY INVESTIGATION ARCHIVE</span>
+        <span>BELLINGCAT &amp; GIJN VERIFICATION STANDARDS</span>
+        <span>EVIDENCE PACKET ARCHITECTURE</span>
+      </div>
+      <h1 class="masthead-brand" style="font-size: 2.8rem; margin: 4px 0;">
+        <a href="./">VERDICT</a>
+      </h1>
+      <p class="masthead-descriptor" style="margin-bottom: 0;">
+        CASE → QUESTION → EVIDENCE → TIMELINE → ENTITIES → MONEY → CONTRADICTIONS → SOURCES
+      </p>
+    </div>
+  </header>
+
+  <!-- Main Case Page Container -->
+  <main class="main-wrapper" style="padding-top: 16px;">
+    <!-- Top Hero Header (Populated dynamically) -->
+    <section id="case-hero" class="case-hero" aria-label="Investigation Overview">
+      <!-- Injected dynamically by case.js -->
+    </section>
+
+    <!-- Two-Column Broadsheet Case Layout -->
+    <div class="case-page-layout">
+      <!-- Sticky Navigation Side Rail -->
+      <aside class="case-nav-rail" aria-label="Case section navigation">
+        <div class="case-nav-title">
+          <span>Investigation Layers</span>
+          <span>TOC</span>
+        </div>
+        <ul id="case-nav-list" class="case-nav-list">
+          <!-- Injected dynamically by case.js -->
+        </ul>
+      </aside>
+
+      <!-- Main Case Content Stream -->
+      <div id="case-content-stream" class="case-content-stream">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Evidence Packet Modal Drawer -->
+  <div id="evidence-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="evidence-modal-title">
+    <div class="modal-dialog evidence-modal-dialog">
+      <button type="button" id="evidence-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div id="evidence-modal-content">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Relationship Edge Inspector Modal -->
+  <div id="edge-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="edge-modal-title">
+    <div class="modal-dialog">
+      <button type="button" id="edge-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div id="edge-modal-content">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- "What Changed?" Version Diff Modal -->
+  <div id="diff-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="diff-modal-title">
+    <div class="modal-dialog">
+      <button type="button" id="diff-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div id="diff-modal-content">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- "Challenge / Correct This Record" Submission Modal -->
+  <div id="challenge-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="challenge-modal-title">
+    <div class="modal-dialog">
+      <button type="button" id="challenge-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div class="challenge-form-wrap">
+        <span class="kicker" style="color: var(--accent);">TRUST &amp; CORRECTIONS OMBUDSMAN</span>
+        <h3 id="challenge-modal-title" style="font-family: var(--font-serif); font-size: 1.4rem; margin: 4px 0 10px;">
+          Challenge / Correct This Record
+        </h3>
+        <p style="font-size: 0.88rem; color: var(--ink-secondary); margin-bottom: 16px;">
+          VERDICT welcomes substantive factual challenges. Submissions enter a non-mutating analyst verification queue and do not directly overwrite canonical records.
+        </p>
+
+        <form id="challenge-submission-form" onsubmit="return false;">
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; margin-bottom: 4px;">
+              RECORD BEING CHALLENGED:
+            </label>
+            <input type="text" id="challenge-target-id" readonly style="width: 100%; padding: 8px; font-family: var(--font-mono); font-size: 0.82rem; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-xs);">
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; margin-bottom: 4px;">
+              WHAT IS INACCURATE OR INCOMPLETE? *
+            </label>
+            <textarea id="challenge-description" required rows="3" placeholder="Provide specific wording, date discrepancy, or factual error..." style="width: 100%; padding: 8px; font-family: var(--font-sans); font-size: 0.88rem; border: 1px solid var(--border); border-radius: var(--radius-xs);"></textarea>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; margin-bottom: 4px;">
+              PRIMARY EVIDENCE / SUPPORTING CITATION *
+            </label>
+            <textarea id="challenge-source" required rows="2" placeholder="Official gazette URL, court order docket number, or archival link..." style="width: 100%; padding: 8px; font-family: var(--font-sans); font-size: 0.88rem; border: 1px solid var(--border); border-radius: var(--radius-xs);"></textarea>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-family: var(--font-mono); font-size: 0.76rem; font-weight: 700; margin-bottom: 4px;">
+              YOUR CONTACT EMAIL / AFFILIATION (OPTIONAL FOR FOLLOW-UP):
+            </label>
+            <input type="text" id="challenge-contact" placeholder="researcher@institution.org or Subject Representative" style="width: 100%; padding: 8px; font-family: var(--font-sans); font-size: 0.88rem; border: 1px solid var(--border); border-radius: var(--radius-xs);">
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span id="challenge-status-msg" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent);"></span>
+            <button type="submit" id="challenge-submit-btn" class="btn-primary" style="padding: 8px 18px; font-size: 0.84rem;">
+              Submit for Analyst Review ↗
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <h3 class="footer-logo">VERDICT</h3>
+        <p class="footer-tagline">
+          Evidence-First Public Accountability &amp; Open-Source Intelligence Platform.
+        </p>
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); margin-top: 8px;">
+          Preserving provenance, verification standards, and epistemic boundaries.
+        </p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Methodology &amp; Standards</h4>
+        <ul>
+          <li><a href="./methodology.html">Verification Standards</a></li>
+          <li><a href="./limitations.html">Research Limitations</a></li>
+          <li><a href="./faq.html">Frequently Asked Questions</a></li>
+          <li><a href="./glossary.html">Epistemic Glossary</a></li>
+          <li><a href="./about.html">About VERDICT Desk</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h4>Trust &amp; Governance</h4>
+        <ul>
+          <li><a href="#section-reply">Right of Reply Register</a></li>
+          <li><a href="#section-versioning">Corrections &amp; Version History</a></li>
+          <li><a href="#section-coverage">Research Coverage Dashboard</a></li>
+          <li><a href="#section-audit">Public Audit Trail</a></li>
+          <li><a href="./contribute.html">Submit Lead / Evidence</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="./js/case.js"></script>
+</body>
+</html>

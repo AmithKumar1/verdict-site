@@ -1,5 +1,5 @@
 /**
- * VERDICT â Public Accountability & Open-Source Intelligence
+ * VERDICT — Public Accountability & Open-Source Intelligence
  * Research Interface Controller (Vanilla ES Module)
  */
 
@@ -173,7 +173,7 @@ class VerdictApp {
 
     this.modalBody.innerHTML = `
       <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
-        ${source.code} Â· ${source.sourceClass}
+        ${source.code} · ${source.sourceClass}
       </div>
       <h3 style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; color: var(--ink); line-height: 1.25; margin-bottom: 14px;">
         ${this.escapeHtml(source.title)}
@@ -190,7 +190,7 @@ class VerdictApp {
       <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid var(--border-subtle);">
         <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-muted);">Chain of Custody Verified</span>
         <a href="${this.escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 8px 16px; font-size: 0.82rem;">
-          Open Primary URL â
+          Open Primary URL ↗
         </a>
       </div>
     `;
@@ -381,12 +381,12 @@ class VerdictApp {
         <div class="candidate-info">
           <h4>${this.escapeHtml(c.name)}</h4>
           <div class="candidate-meta">
-            <b>Organization:</b> ${this.escapeHtml(c.organization)} Â· 
-            <b>Role:</b> ${this.escapeHtml(c.role)} Â· 
+            <b>Organization:</b> ${this.escapeHtml(c.organization)} · 
+            <b>Role:</b> ${this.escapeHtml(c.role)} · 
             <b>Jurisdiction:</b> ${this.escapeHtml(c.location)}
           </div>
           <div style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 4px;">
-            Signals: ${c.signals.map(s => `<code>${this.escapeHtml(s)}</code>`).join(' ')} Â· Active: ${c.activeYears}
+            Signals: ${c.signals.map(s => `<code>${this.escapeHtml(s)}</code>`).join(' ')} · Active: ${c.activeYears}
           </div>
         </div>
         <div>
@@ -412,10 +412,10 @@ class VerdictApp {
 
       return `
         <article class="entity-card" data-entity-id="${entity.id}" role="region" aria-label="Entity ${this.escapeHtml(entity.name)}">
-          <div class="entity-type-badge">${entity.type} Â· ${entity.identityState}</div>
+          <div class="entity-type-badge">${entity.type} · ${entity.identityState}</div>
           <h3 class="entity-name">
             <a href="./dossier.html?id=${entity.id}" style="color: inherit; text-decoration: none;" title="Open complete investigative dossier">
-              ${this.escapeHtml(entity.name)} â
+              ${this.escapeHtml(entity.name)} ↗
             </a>
           </h3>
           <p class="entity-role">${this.escapeHtml(entity.publicRole)}</p>
@@ -425,7 +425,7 @@ class VerdictApp {
           </div>
           <div style="margin-top: 14px; display: flex; gap: 8px;">
             <a href="./dossier.html?id=${entity.id}" class="btn-primary" style="flex: 1; justify-content: center; padding: 7px 12px; font-size: 0.78rem; text-decoration: none;">
-              Open Full Dossier â
+              Open Full Dossier →
             </a>
             <button type="button" class="filter-chip entity-filter-btn" data-entity-filter-id="${entity.id}" style="padding: 6px 10px; font-size: 0.74rem;">
               Filter Brief
@@ -450,14 +450,14 @@ class VerdictApp {
       const source = this.data.sources.find(s => claim.sourceIds && claim.sourceIds.includes(s.id));
       const sourceHtml = source ? `
         <button class="source-link-btn" data-source-id="${source.id}" title="Inspect source provenance">
-          Source: ${this.escapeHtml(claim.attribution)} [${source.code}] â
+          Source: ${this.escapeHtml(claim.attribution)} [${source.code}] ↗
         </button>
       ` : `<span>${this.escapeHtml(claim.attribution)}</span>`;
 
       const subjectEntity = this.data.entities.find(e => e.id === claim.subjectEntityId);
       const entityPill = subjectEntity ? `
         <a href="./dossier.html?id=${subjectEntity.id}" class="entity-pill-link" title="Open complete dossier for ${this.escapeHtml(subjectEntity.name)}">
-          Subject: ${this.escapeHtml(subjectEntity.name)} â
+          Subject: ${this.escapeHtml(subjectEntity.name)} ↗
         </a>
       ` : '';
 
@@ -465,7 +465,7 @@ class VerdictApp {
         <article class="evidence-row" data-id="${claim.id}">
           <div class="evidence-top">
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-              <span class="evidence-id-badge">${claim.code} Â· ${claim.date}</span>
+              <span class="evidence-id-badge">${claim.code} · ${claim.date}</span>
               ${entityPill}
             </div>
             <span class="state-badge ${claim.state.toLowerCase()}">${claim.state}</span>
@@ -493,7 +493,7 @@ class VerdictApp {
       const eventEntities = (evt.entityIds || []).map(id => this.data.entities.find(e => e.id === id)).filter(Boolean);
       const entityPills = eventEntities.map(ent => `
         <a href="./dossier.html?id=${ent.id}" class="entity-pill-link" style="font-size: 0.68rem; padding: 1px 6px;" title="Open dossier for ${this.escapeHtml(ent.name)}">
-          ${this.escapeHtml(ent.name)} â
+          ${this.escapeHtml(ent.name)} ↗
         </a>
       `).join(' ');
 
@@ -510,7 +510,7 @@ class VerdictApp {
               </div>
               ${source ? `
                 <button class="source-link-btn" data-source-id="${source.id}">
-                  ${source.code} Â· ${source.publisher} â
+                  ${source.code} · ${source.publisher} ↗
                 </button>
               ` : ''}
             </div>
@@ -529,7 +529,7 @@ class VerdictApp {
           <td>
             <div style="font-weight: 600; color: var(--ink);">${this.escapeHtml(fund.donor)}</div>
             <div style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--ink-muted); margin-top: 2px;">
-              â ${this.escapeHtml(fund.recipient)}
+              → ${this.escapeHtml(fund.recipient)}
             </div>
           </td>
           <td>
@@ -552,7 +552,7 @@ class VerdictApp {
             </div>
             ${source ? `
               <button class="source-link-btn" data-source-id="${source.id}" style="font-size: 0.72rem;">
-                ${source.publisher} [${source.code}] â
+                ${source.publisher} [${source.code}] ↗
               </button>
             ` : ''}
           </td>

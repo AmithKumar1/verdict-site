@@ -78,4 +78,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://www.verdict.is-an.org/case.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.verdict.is-an.org/case.html?id=case_abhijeet-dipke</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.verdict.is-an.org/case.html?id=case_sharjeel-imam</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>

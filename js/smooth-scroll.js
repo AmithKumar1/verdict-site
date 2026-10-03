@@ -1,5 +1,5 @@
 /**
- * VERDICT â Precision Smooth Scroll & Gliding Momentum Interaction
+ * VERDICT — Precision Smooth Scroll & Gliding Momentum Interaction
  * Based on the Nothing.gripe smooth scroll architecture with Lenis
  */
 
