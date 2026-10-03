@@ -89,6 +89,31 @@
     if (header) header.classList.toggle('is-scrolled', e.scroll > 20);
   });
 
+  // Native scroll fallback (if Lenis is paused or for fast initial check)
+  window.addEventListener('scroll', function () {
+    if (header && !window.lenis) {
+      header.classList.toggle('is-scrolled', window.scrollY > 20);
+    }
+  }, { passive: true });
+
+  // Brand link click: Smooth scroll to top when on home page
+  document.addEventListener('click', function (e) {
+    var brand = e.target.closest('#utility-brand-home, .utility-brand-link');
+    if (!brand) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return; // Allow new tab / window
+
+    var pathname = window.location.pathname;
+    var isHome = pathname.endsWith('index.html') || pathname === '/' || pathname.endsWith('/');
+
+    if (isHome) {
+      e.preventDefault();
+      window.smoothScrollTo(0);
+      if (window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+      }
+    }
+  });
+
   // Reveal On Scroll (IntersectionObserver)
   window.initScrollReveals = function () {
     var revealEls = document.querySelectorAll('[data-reveal]');

@@ -16,8 +16,13 @@
   <aside class="top-utility" aria-label="Publication status">
     <div class="top-utility-inner">
       <div class="utility-left">
+        <a href="./" class="utility-brand-link" id="utility-brand-home" aria-label="VERDICT Home" title="VERDICT — Return to main page">
+          <span class="brand-glyph" aria-hidden="true">⚖️</span>
+          <span class="brand-wordmark">VERDICT</span>
+        </a>
+        <span class="utility-sep utility-brand-sep">|</span>
         <a href="./" class="live-pill" style="color: var(--ink);">
-          ← Return to VERDICT Brief
+          ← Return to Brief
         </a>
       </div>
       <div class="utility-right">
@@ -112,7 +117,7 @@
             <span class="step-number">STEP 01</span>
             <h4 class="step-title">1. Fund</h4>
             <p class="step-desc">
-              Send a contribution to Verdict's public MetaMask/EVM wallet via Base, Ethereum, Polygon, or Arbitrum in USDC, USDT, or ETH.
+              Select contribution amount and asset (USDC, USDT, BTC, ETH, SOL). Pay via dynamic checkout session with zero wallet exposure.
             </p>
           </div>
 
@@ -120,7 +125,7 @@
             <span class="step-number">STEP 02</span>
             <h4 class="step-title">2. Submit</h4>
             <p class="step-desc">
-              Submit your research request below with the target entity, your core question, why it matters, public sources, and the transaction hash.
+              Your session issues a Payment ID (VR-FUND-XXXXXX). Submit the target subject, question, public interest rationale, and sources.
             </p>
           </div>
 
@@ -128,7 +133,7 @@
             <span class="step-number">STEP 03</span>
             <h4 class="step-title">3. Review</h4>
             <p class="step-desc">
-              Verdict assesses the request based on public-interest merit, availability of public records, legal compliance, and research feasibility.
+              Independent editorial review (24–48 hours) verifies public-interest merit, availability of public records, and research feasibility.
             </p>
           </div>
 
@@ -136,7 +141,7 @@
             <span class="step-number">STEP 04</span>
             <h4 class="step-title">4. Investigate</h4>
             <p class="step-desc">
-              Researchers examine statutory databases, gazette entries, corporate registries, court orders, and web archives independently.
+              Researchers examine statutory databases, gazette entries, corporate filings, court orders, and web archives independently.
             </p>
           </div>
 
@@ -150,95 +155,114 @@
         </div>
       </section>
 
-      <!-- Main Action Grid: Wallet Card + Research Request Form -->
+      <!-- Main Action Grid: Step 1 (Checkout Station) + Step 2 (Research Request Form) -->
       <div class="fund-grid">
 
-        <!-- Column 1: Wallet Station -->
-        <aside class="wallet-station-card">
-          <span class="section-label">Cryptographic Receiving Desk</span>
-          <h3 class="wallet-station-title">Send Contribution</h3>
+        <!-- Column 1: Step 01 Multi-Crypto Checkout Station -->
+        <aside class="wallet-station-card" id="step-01-station">
+          <span class="section-label">Step 01 of 05</span>
+          <h3 class="wallet-station-title">Fund Research</h3>
           <p class="wallet-station-desc">
-            Contribute using any standard non-custodial wallet (MetaMask, Rabby, Coinbase Wallet). Layer 2 networks like Base are recommended for near-zero transaction fees.
+            Contribute to independent public-interest investigations. Choose your contribution tier and cryptocurrency. The gateway creates dynamic payment routing—no static wallet address is exposed.
           </p>
 
-          <!-- Network Tabs -->
+          <!-- Contribution Tier Presets -->
           <div style="margin-bottom: 8px;">
-            <label class="form-label" style="font-size: 0.7rem;">Select Blockchain Network:</label>
-            <div id="network-selector" class="network-selector-pills">
-              <!-- Injected by fund.js -->
+            <label class="form-label" style="font-size: 0.72rem;">1. Select Contribution Amount (USD):</label>
+            <div id="amount-presets" class="preset-grid">
+              <!-- Rendered dynamically by fund.js -->
+            </div>
+            
+            <div class="custom-amount-row">
+              <span>$</span>
+              <input type="number" id="custom-amount-input" class="custom-amount-input" placeholder="Custom amount (min $10)" min="10" step="5">
             </div>
           </div>
 
-          <!-- Address Box -->
-          <div class="address-display-box">
-            <div class="address-label-row">
-              <span>Public Wallet Address</span>
-              <span id="active-network-name">Base (Low Fee)</span>
+          <!-- Supported Crypto Assets -->
+          <div style="margin-bottom: 12px;">
+            <label class="form-label" style="font-size: 0.72rem;">2. Pay With Cryptocurrency:</label>
+            <div id="coin-selector" class="coin-grid">
+              <!-- Rendered dynamically by fund.js -->
             </div>
-            <code id="wallet-address-text" class="wallet-address-code">Loading address...</code>
           </div>
 
-          <!-- Copy Button -->
-          <button type="button" id="copy-wallet-btn" class="copy-btn">
-            📋 Copy Public Wallet Address
+          <!-- Checkout Trigger Button -->
+          <button type="button" id="initiate-checkout-btn" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.95rem; font-family: var(--font-mono); font-weight: 700;">
+            Pay Securely →
           </button>
-          <div id="copy-feedback" style="font-size: 0.78rem; color: var(--state-ver-text); text-align: center; min-height: 18px; margin-bottom: 12px; font-family: var(--font-mono);"></div>
 
-          <div style="text-align: center; margin-bottom: 20px;">
-            <a id="explorer-address-link" href="#" target="_blank" rel="noopener noreferrer" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent); text-decoration: underline;">
-              View on Block Explorer ↗
+          <!-- Active Checkout Session Drawer (Revealed upon click) -->
+          <div id="active-session-container" class="active-session-card" style="display: none;">
+            <div class="session-badge-row">
+              <span class="session-status" id="session-status-text">● Session Active · Dynamic Gateway</span>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-muted);" id="session-timestamp">Just now</span>
+            </div>
+            
+            <div style="font-size: 0.8rem; color: var(--ink-secondary); margin-bottom: 4px;">
+              Your Internal Payment Reference ID:
+            </div>
+            
+            <div class="payment-id-display">
+              <span id="active-payment-id" class="payment-id-code">VR-FUND-XXXXXX</span>
+              <button type="button" id="copy-payment-id-btn" class="copy-mini-btn" title="Copy Payment Reference ID">
+                📋 Copy
+              </button>
+            </div>
+
+            <div id="session-instruction-text" style="font-size: 0.82rem; color: var(--ink-secondary); line-height: 1.45; margin-bottom: 10px;">
+              Transfer contribution to complete checkout. This Reference ID is automatically linked to your Research Request form in Step 2.
+            </div>
+
+            <a id="hosted-checkout-link" href="#" target="_blank" rel="noopener noreferrer" class="invoice-action-btn" style="display: none;">
+              Open Hosted Invoice ↗
             </a>
-          </div>
 
-          <!-- Accepted Assets -->
-          <div style="margin-bottom: 18px;">
-            <label class="form-label" style="font-size: 0.7rem;">Accepted Digital Assets:</label>
-            <div class="assets-row">
-              <div class="asset-badge">
-                <div class="asset-badge-sym">USDC</div>
-                <div class="asset-badge-name">Stablecoin ★</div>
-              </div>
-              <div class="asset-badge">
-                <div class="asset-badge-sym">USDT</div>
-                <div class="asset-badge-name">Tether USD</div>
-              </div>
-              <div class="asset-badge">
-                <div class="asset-badge-sym">ETH</div>
-                <div class="asset-badge-name">Native / WETH</div>
-              </div>
+            <div style="margin-top: 10px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--state-ver-text); text-align: center;" id="link-auto-status">
+              ✓ Auto-linked to Research Request Form below
             </div>
           </div>
 
-          <!-- Suggested Research Benchmarks -->
-          <div style="border-top: 1px solid var(--border-subtle); padding-top: 16px; margin-top: 16px;">
-            <label class="form-label" style="font-size: 0.7rem;">Suggested Research Benchmarks:</label>
-            <div style="font-size: 0.8rem; color: var(--ink-secondary); line-height: 1.5;">
-              <div style="margin-bottom: 6px;"><b>$25 – $50:</b> Statutory lookup &amp; certified filing retrieval</div>
-              <div style="margin-bottom: 6px;"><b>$150 – $300:</b> Full target entity dossier &amp; timeline</div>
-              <div><b>$500+:</b> Deep multi-entity network &amp; money trail analysis</div>
+          <!-- Privacy Architecture Guarantee -->
+          <div class="privacy-badge-box">
+            <b>🛡️ Privacy Architecture:</b>
+            <div style="margin-top: 4px;">
+              Verdict never publishes a personal wallet address. Payout wallets and webhook secrets remain strictly server-side. Payments are authenticated via HMAC-SHA512 callbacks.
             </div>
           </div>
 
-          <!-- Security Alert -->
-          <div class="security-alert">
-            <strong>⚠️ Security Notice:</strong> Never send private keys or recovery phrases. Verdict will never ask for credentials. Only send supported tokens to the verified public address above.
+          <!-- Refund Policy Quick Note -->
+          <div style="margin-top: 12px; font-size: 0.76rem; color: var(--ink-muted); line-height: 1.4;">
+            <a href="#refund-policy" style="color: var(--accent); text-decoration: underline;">Review Refund &amp; Scope Policy ↗</a> · 48h eligibility window.
           </div>
         </aside>
 
-        <!-- Column 2: Research Request Form -->
-        <section class="form-station-card">
+        <!-- Column 2: Step 02 Research Request Form -->
+        <section class="form-station-card" id="step-02-form">
           <span class="section-label">Step 02 of 05</span>
           <h3 class="form-station-title">Submit Research Request</h3>
           <p class="form-station-desc">
-            After transferring your contribution, complete this form so our research desk can match your payment with the public-interest question.
+            Complete this form to connect your contribution to a public-interest research objective. Our editorial desk independently reviews each request against documentary evidence standards.
           </p>
 
           <form id="research-request-form">
             
+            <!-- Linked Payment Reference ID Display -->
+            <div class="form-group" style="background: var(--bg-subtle); border: 1px solid var(--border); border-radius: var(--radius-xs); padding: 12px 14px; margin-bottom: 20px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <label class="form-label" for="req-payment-id" style="margin-bottom: 0;">Payment Reference ID (VR-FUND-XXXXXX) *</label>
+                <span class="funding-disclosure-badge" id="payment-id-badge" style="background: var(--bg); border: 1px solid var(--border);">Awaiting Step 1</span>
+              </div>
+              <input id="req-payment-id" type="text" class="form-control form-control-mono" placeholder="VR-FUND-XXXXXX" required readonly style="background: var(--surface); font-weight: 700; color: var(--accent);">
+              <div class="form-hint">
+                Generated automatically by clicking "Pay Securely" in Step 1. Binds your contribution to this research brief without exposing personal wallets.
+              </div>
+            </div>
+
             <div class="form-row-2">
               <div class="form-group">
                 <label class="form-label" for="req-subject">Target Entity / Subject Name *</label>
-                <input id="req-subject" type="text" class="form-control" placeholder="e.g. Person name, Company, Organization, or Domain" required>
+                <input id="req-subject" type="text" class="form-control" placeholder="e.g. Person name, Company, Organization, or Domain" required minlength="2">
                 <div class="form-hint">Who or what is the subject of this public-interest investigation?</div>
               </div>
 
@@ -259,13 +283,13 @@
 
             <div class="form-group">
               <label class="form-label" for="req-question">Specific Research Question *</label>
-              <textarea id="req-question" rows="3" class="form-control" placeholder="e.g. What are the registered corporate directorships and statutory filings of X between 2021 and 2025, and do they align with public declarations?" required></textarea>
+              <textarea id="req-question" rows="3" class="form-control" placeholder="e.g. What are the registered corporate directorships and statutory filings of X between 2021 and 2025, and do they align with public declarations?" required minlength="10"></textarea>
               <div class="form-hint">Frame a concrete, falsifiable question that can be answered using public records.</div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="req-why">Why This Matters (Public Interest Justification) *</label>
-              <textarea id="req-why" rows="2" class="form-control" placeholder="Explain why investigating this subject serves the public interest (e.g. public office holder, campaign financing, state contract recipient, consumer transparency)." required></textarea>
+              <textarea id="req-why" rows="2" class="form-control" placeholder="Explain why investigating this subject serves the public interest (e.g. public office holder, campaign financing, state contract recipient, consumer transparency)." required minlength="10"></textarea>
               <div class="form-hint">Requests motivated by private grievances, commercial blackmail, or doxxing will be rejected.</div>
             </div>
 
@@ -277,43 +301,19 @@
 
             <div class="form-row-2">
               <div class="form-group">
-                <label class="form-label" for="req-network">Blockchain Network Used *</label>
-                <select id="req-network" class="form-control" required>
-                  <!-- Populated dynamically by fund.js -->
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="req-asset">Asset Sent *</label>
-                <select id="req-asset" class="form-control" required>
-                  <option value="USDC">USDC (USD Coin)</option>
-                  <option value="USDT">USDT (Tether USD)</option>
-                  <option value="ETH">ETH (Ether / WETH)</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label" for="req-txhash">Transaction Hash (TxHash) *</label>
-              <input id="req-txhash" type="text" class="form-control form-control-mono" placeholder="0x..." required maxlength="66">
-              <div class="form-hint">The 66-character transaction receipt from your wallet or block explorer.</div>
-            </div>
-
-            <div class="form-row-2">
-              <div class="form-group">
-                <label class="form-label" for="req-funder-address">Your Public Address (Optional)</label>
-                <input id="req-funder-address" type="text" class="form-control form-control-mono" placeholder="0x... (Optional)">
-                <div class="form-hint">Used strictly to verify sender on-chain. Never share private keys.</div>
-              </div>
-
-              <div class="form-group">
                 <label class="form-label" for="req-attribution">Public Funding Disclosure Preference *</label>
                 <select id="req-attribution" class="form-control" required>
                   <option value="anonymous">Disclose as: Anonymous Third-Party Contributor</option>
-                  <option value="public_wallet">Disclose as: On-Chain Wallet Address (0x...)</option>
-                  <option value="pseudonym">Disclose as: Pseudonymous Funder (Specify in question)</option>
+                  <option value="public_request_id">Disclose as: Public Request ID [VR-FUND-XXXXXX]</option>
+                  <option value="pseudonym">Disclose as: Pseudonymous Funder (Specify in Question)</option>
                 </select>
-                <div class="form-hint">How your sponsorship will appear in public disclosures if published.</div>
+                <div class="form-hint">How your sponsorship will appear in public disclosures if published. Zero personal info is revealed.</div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="req-txhash">On-Chain TxHash (Optional)</label>
+                <input id="req-txhash" type="text" class="form-control form-control-mono" placeholder="0x... or transaction ID (Optional)">
+                <div class="form-hint">Optional on-chain receipt if direct deposit was used instead of hosted invoice.</div>
               </div>
             </div>
 
@@ -330,6 +330,13 @@
                 <input type="checkbox" id="ack-public-interest" required>
                 <label for="ack-public-interest">
                   <b>I certify Public Interest &amp; Lawful Intent:</b> This request concerns questions of legitimate public accountability. It does not solicit private extortion, non-public personal data theft, harassment, or defamatory smear campaigns.
+                </label>
+              </div>
+
+              <div class="agreement-item">
+                <input type="checkbox" id="ack-refund-policy" required>
+                <label for="ack-refund-policy">
+                  <b>I acknowledge the Defined Refund &amp; Scope Policy:</b> I understand that full refunds are available within the 48h initial eligibility review if rejected for scope. Research fees are non-refundable once investigative hours are expended on statutory retrievals, and no refunds are granted for disagreement with factual evidence.
                 </label>
               </div>
             </div>
@@ -365,6 +372,69 @@
         </div>
       </section>
 
+      <!-- Defined Refund Policy & Editorial Firewall Section -->
+      <section id="refund-policy" class="editorial-policy-section" style="margin-top: 48px; border-top: 1px solid var(--border); padding-top: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+          <div>
+            <span class="section-label" id="editorial-policy">Newsroom Standards &amp; Terms</span>
+            <h3 class="section-heading" style="margin-bottom: 8px;">Defined Refund Policy &amp; Editorial Firewall</h3>
+          </div>
+          <span class="funding-disclosure-badge" style="background: var(--surface); border-color: var(--ink);">
+            LEGAL &amp; EDITORIAL INVARIANTS
+          </span>
+        </div>
+
+        <p style="font-size: 0.95rem; color: var(--ink-secondary); line-height: 1.6; max-width: 860px; margin-bottom: 24px;">
+          To prevent paid research from distorting investigative integrity, Verdict maintains an uncompromising distinction between financial contributions and editorial decisions:
+        </p>
+
+        <!-- Invariant Equation Strip -->
+        <div style="background: var(--surface); border: 1px solid var(--border-strong); border-left: 5px solid var(--accent); border-radius: var(--radius-xs); padding: 16px 20px; font-family: var(--font-mono); font-size: 0.85rem; font-weight: 700; color: var(--ink); margin-bottom: 28px; line-height: 1.6;">
+          PAYMENT RECEIVED &nbsp;≠&nbsp; REQUEST ACCEPTED &nbsp;≠&nbsp; INVESTIGATION OPENED &nbsp;≠&nbsp; PUBLICATION
+        </div>
+
+        <!-- 3 Policy Rules Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px;">
+          
+          <div style="background: var(--surface); border: 1px solid var(--border); border-top: 3px solid #16a34a; border-radius: var(--radius-xs); padding: 20px;">
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: #16a34a; text-transform: uppercase; margin-bottom: 6px;">
+              RULE 01 · 48H WINDOW
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 8px;">
+              Scope &amp; Eligibility Rejection
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.5; margin: 0;">
+              If a request is rejected during the initial 48-hour editorial review—due to lack of legitimate public-interest merit, doxxing intent, non-public data solicitation, or bad faith—the contributor is eligible for a <b>100% refund</b> (less network gas fees) or research credit.
+            </p>
+          </div>
+
+          <div style="background: var(--surface); border: 1px solid var(--border); border-top: 3px solid #d97706; border-radius: var(--radius-xs); padding: 20px;">
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: #d97706; text-transform: uppercase; margin-bottom: 6px;">
+              RULE 02 · RESEARCH EXPENDITURE
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 8px;">
+              Evidentiary Inconclusiveness
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.5; margin: 0;">
+              If exhaustive investigation reveals that public records do not support an allegation, Verdict documents the negative finding and evidentiary absence in the internal audit trail. Statutory registry lookup costs and expended investigative hours are non-refundable.
+            </p>
+          </div>
+
+          <div style="background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent); border-radius: var(--radius-xs); padding: 20px;">
+            <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 700; color: var(--accent); text-transform: uppercase; margin-bottom: 6px;">
+              RULE 03 · EDITORIAL INDEPENDENCE
+            </div>
+            <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 8px;">
+              Factual Findings Dispute
+            </h4>
+            <p style="font-size: 0.86rem; color: var(--ink-secondary); line-height: 1.5; margin: 0;">
+              Under no circumstances are refunds granted because a contributor is dissatisfied with the factual findings, evidentiary conclusions, or neutral tone of a published dossier. Verdict reports verifiable facts—it does not produce paid advocacy.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
       <!-- FAQ Section -->
       <section style="margin-top: 50px; border-top: 1px solid var(--border); padding-top: 36px;">
         <span class="section-label">Questions &amp; Clarifications</span>
@@ -394,7 +464,7 @@
               Can I fund an investigation anonymously?
             </h4>
             <p style="font-size: 0.88rem; color: var(--ink-secondary); line-height: 1.5;">
-              Yes. Cryptographic transactions are pseudonymous by nature. In the submission form, you can choose to be disclosed as "Anonymous Third-Party Contributor" or by your public wallet address.
+              Yes. Cryptographic transactions are pseudonymous by nature. In the submission form, you can choose to be disclosed as "Anonymous Third-Party Contributor" or by your public payment reference ID (<code>VR-FUND-XXXXXX</code>). Verdict's privacy architecture never collects or displays personal wallet addresses.
             </p>
           </div>
 

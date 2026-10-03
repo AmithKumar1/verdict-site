@@ -609,4 +609,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Setup brand click to scroll to top
+  const brandHomeBtn = document.getElementById('utility-brand-home');
+  if (brandHomeBtn) {
+    brandHomeBtn.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      e.preventDefault();
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      if (window.location.hash) {
+        history.pushState(null, '', window.location.pathname);
+      }
+    });
+  }
 });

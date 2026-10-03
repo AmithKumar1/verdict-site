@@ -1,111 +1,88 @@
 /**
- * VERDICT — Public Funding & Research Configuration
+ * VERDICT — Crypto Payment Gateway & Funded Research Configuration
  * 
- * Central configuration for independent public-interest research funding.
- * Reconciles EVM wallet addresses, supported networks, accepted assets,
- * and editorial independence policies.
+ * Central configuration for privacy-first, multi-crypto research funding.
+ * Operates via dynamic hosted checkout and webhooks (NOWPayments / PayRam).
  * 
- * SITE OWNER: Replace the default public wallet address below with your MetaMask public address.
+ * PRIVACY GUARANTEE:
+ * No personal wallet address is published anywhere on the website.
+ * Payout addresses and API credentials remain strictly server-side.
  */
 
 export const VERDICT_FUNDING_CONFIG = {
-  // Public MetaMask / EVM receiving address
-  // NOTE: This is a public wallet address for incoming research contributions.
-  // Never expose private keys or seed phrases.
-  publicWalletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", // Configurable public address
+  // Gateway architecture mode
+  gatewayMode: "dynamic_checkout",
+  provider: "nowpayments", // Supports NOWPayments or self-hosted PayRam
 
-  // Supported EVM networks
-  supportedNetworks: [
+  // Contribution Presets (USD)
+  presetAmounts: [
     {
-      id: "base",
-      name: "Base",
-      type: "Layer 2",
-      chainId: 8453,
-      recommended: true,
-      blockExplorer: "https://basescan.org/tx/",
-      addressExplorer: "https://basescan.org/address/",
-      gasNote: "Ultra-low gas fees (~$0.01)"
+      value: 25,
+      label: "$25",
+      title: "Statutory Lookup Fee",
+      desc: "Covers official MCA corporate filings & court registry lookups."
     },
     {
-      id: "ethereum",
-      name: "Ethereum",
-      type: "Mainnet",
-      chainId: 1,
-      recommended: false,
-      blockExplorer: "https://etherscan.io/tx/",
-      addressExplorer: "https://etherscan.io/address/",
-      gasNote: "Standard Ethereum network"
+      value: 50,
+      label: "$50",
+      title: "Document Retrieval & Archives",
+      desc: "Funds archived web forensic recovery & gazette verification."
     },
     {
-      id: "polygon",
-      name: "Polygon PoS",
-      type: "Sidechain",
-      chainId: 137,
-      recommended: false,
-      blockExplorer: "https://polygonscan.com/tx/",
-      addressExplorer: "https://polygonscan.com/address/",
-      gasNote: "Low gas fees (~$0.02)"
+      value: 100,
+      label: "$100",
+      title: "Entity Dossier Investigation",
+      desc: "Funds structured target profile, role reconciliation, and timeline."
     },
     {
-      id: "arbitrum",
-      name: "Arbitrum One",
-      type: "Layer 2",
-      chainId: 42161,
-      recommended: false,
-      blockExplorer: "https://arbiscan.io/tx/",
-      addressExplorer: "https://arbiscan.io/address/",
-      gasNote: "Low rollup gas fees"
-    },
-    {
-      id: "bnb",
-      name: "BNB Smart Chain",
-      type: "EVM Chain",
-      chainId: 56,
-      recommended: false,
-      blockExplorer: "https://bscscan.com/tx/",
-      addressExplorer: "https://bscscan.com/address/",
-      gasNote: "Low network fees"
+      value: 250,
+      label: "$250",
+      title: "Deep Financial Trail & Network",
+      desc: "Multi-entity corporate holding structures & public money trails."
     }
   ],
 
-  // Accepted cryptographic assets
-  acceptedAssets: [
+  // Supported Cryptocurrencies across all major chains
+  supportedCoins: [
     {
       symbol: "USDC",
       name: "USD Coin",
-      type: "Stablecoin (Recommended)",
-      description: "Direct dollar-pegged stablecoin. Preferred for predictable research budgeting."
+      type: "Stablecoin",
+      badge: "RECOMMENDED",
+      networks: "Base · Ethereum · Solana · Polygon",
+      icon: "💵"
     },
     {
       symbol: "USDT",
       name: "Tether USD",
       type: "Stablecoin",
-      description: "Widely accepted stablecoin across all supported EVM networks."
+      badge: "POPULAR",
+      networks: "Tron · Ethereum · BSC · Polygon",
+      icon: "₮"
+    },
+    {
+      symbol: "BTC",
+      name: "Bitcoin",
+      type: "Native Crypto",
+      badge: "SOVEREIGN",
+      networks: "Bitcoin Mainnet",
+      icon: "₿"
     },
     {
       symbol: "ETH",
-      name: "Ethereum (Native / WETH)",
-      type: "Native Asset",
-      description: "Native gas token or wrapped Ether on Layer 2 networks."
-    }
-  ],
-
-  // Suggested research funding tiers (research hours & statutory fee benchmarks)
-  researchTiers: [
-    {
-      tier: "Statutory Record Retrieval",
-      benchmarkUsd: "$25 – $50",
-      scope: "Covers official MCA corporate filings, certified court registry lookups, and gazette order retrieval."
+      name: "Ethereum",
+      type: "Native Crypto",
+      badge: "L2 / MAINNET",
+      networks: "Base · Arbitrum · Ethereum",
+      icon: "Ξ"
     },
     {
-      tier: "Target Entity Dossier",
-      benchmarkUsd: "$150 – $300",
-      scope: "Funds end-to-end structured investigation: identity confirmation, statutory filings, timeline reconstruction, and cross-source consistency review."
-    },
-    {
-      tier: "Deep Network & Financial Trail",
-      benchmarkUsd: "$500+",
-      scope: "Multi-entity network mapping, complex corporate holding structures, electoral trust cross-checks, and public money trail forensics."
+      symbol: "SOL",
+      name: "Solana",
+      type: "Native Crypto",
+      badge: "HIGH SPEED",
+      networks: "Solana Mainnet",
+      icon: "◎"
     }
   ],
 
@@ -116,26 +93,92 @@ export const VERDICT_FUNDING_CONFIG = {
     favorableCoverageBought: false,
     contentRemovalPurchasable: false,
     predeterminedConclusions: false,
-    disclosureRequired: true,
     disclosureNotice: "Research request funded by a third party. Funding does not determine Verdict's findings, editorial treatment, publication decision, or conclusion."
+  },
+
+  // Defined Refund & Cancellation Terms
+  refundPolicy: {
+    scopeRejection: "Full refund or research credit if a request is rejected during initial 48h eligibility review for lacking public-interest merit.",
+    insufficientEvidence: "If public records yield inconclusive findings, Verdict documents the negative finding and evidentiary absence. Research retrieval fees are non-refundable once investigative hours are expended.",
+    findingsDispute: "No refunds are issued based on disagreement with factual findings. The evidence dictates the finding independently.",
+    minimumRefundFee: "Network gas fees deducted for on-chain return transactions."
   }
 };
 
 /**
- * Returns active wallet address, allowing override from window or environment
+ * Generates an internal Payment ID (VR-FUND-XXXXXX) for linking payments to requests
  */
-export function getActiveWalletAddress() {
-  if (typeof window !== "undefined" && window.VERDICT_PUBLIC_WALLET) {
-    return window.VERDICT_PUBLIC_WALLET;
+export function generateClientPaymentId() {
+  const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+  let id = "VR-FUND-";
+  for (let i = 0; i < 6; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return VERDICT_FUNDING_CONFIG.publicWalletAddress;
+  return id;
 }
 
 /**
- * Formats a transaction hash with link to the appropriate block explorer
+ * Creates or simulates a secure dynamic invoice session
  */
-export function getExplorerTxUrl(networkId, txHash) {
-  const net = VERDICT_FUNDING_CONFIG.supportedNetworks.find(n => n.id === networkId) || VERDICT_FUNDING_CONFIG.supportedNetworks[0];
-  const cleanHash = String(txHash || "").trim();
-  return `${net.blockExplorer}${cleanHash}`;
+export async function createPaymentSession(amountUsd, coin, targetSubject = "") {
+  const paymentId = generateClientPaymentId();
+
+  try {
+    const res = await fetch("/api/payment/create-invoice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        paymentId,
+        amountUsd: Number(amountUsd),
+        payCurrency: coin,
+        targetSubject
+      })
+    });
+
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (err) {
+    console.warn("Worker payment API offline, generating local gateway session:", err);
+  }
+
+  // Graceful client gateway session
+  return {
+    paymentId,
+    status: "created",
+    amountUsd: Number(amountUsd),
+    payCurrency: coin,
+    invoiceUrl: null,
+    targetSubject,
+    createdAt: new Date().toISOString(),
+    instructions: `Transfer $${amountUsd} in ${coin} via checkout.`
+  };
 }
+
+/**
+ * Helper to construct block explorer transaction URLs if provided
+ */
+export function getExplorerTxUrl(network, txHash) {
+  if (!txHash) return "#";
+  const cleanHash = txHash.trim();
+  switch (String(network).toLowerCase()) {
+    case "base":
+      return `https://basescan.org/tx/${cleanHash}`;
+    case "solana":
+    case "sol":
+      return `https://solscan.io/tx/${cleanHash}`;
+    case "bitcoin":
+    case "btc":
+      return `https://mempool.space/tx/${cleanHash}`;
+    case "polygon":
+      return `https://polygonscan.com/tx/${cleanHash}`;
+    case "arbitrum":
+      return `https://arbiscan.io/tx/${cleanHash}`;
+    case "tron":
+      return `https://tronscan.org/#/transaction/${cleanHash}`;
+    case "ethereum":
+    default:
+      return `https://etherscan.io/tx/${cleanHash}`;
+  }
+}
+

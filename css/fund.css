@@ -174,7 +174,7 @@
   }
 }
 
-/* Wallet Card Station */
+/* Multi-Crypto Checkout Station */
 .wallet-station-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -198,129 +198,257 @@
   font-size: 0.88rem;
   color: var(--ink-secondary);
   line-height: 1.45;
-  margin-bottom: 20px;
-}
-
-/* Network Selector Tabs */
-.network-selector-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
   margin-bottom: 18px;
 }
 
-.net-pill-btn {
+/* Contribution Amount Presets */
+.preset-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.preset-card {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-xs);
-  padding: 6px 12px;
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--ink-secondary);
+  padding: 10px 12px;
   cursor: pointer;
+  text-align: left;
   transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.net-pill-btn:hover {
+.preset-card:hover {
   border-color: var(--ink);
+  background: var(--surface);
+}
+
+.preset-card.active {
+  border-color: var(--ink);
+  background: var(--bg-subtle);
+  border-width: 2px;
+  padding: 9px 11px;
+}
+
+.preset-val {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.preset-title {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+  line-height: 1.3;
+}
+
+.custom-amount-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px 10px;
+}
+
+.custom-amount-row span {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink-muted);
+}
+
+.custom-amount-input {
+  border: none;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  width: 100%;
+  padding: 6px 0;
+}
+
+.custom-amount-input:focus {
+  outline: none;
+}
+
+/* Crypto Asset Selector Grid */
+.coin-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.coin-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.coin-card:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+
+.coin-card.active {
+  border-color: var(--ink);
+  background: var(--bg-subtle);
+  border-width: 2px;
+  padding: 7px 9px;
+}
+
+.coin-symbol {
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+  font-weight: 800;
   color: var(--ink);
 }
 
-.net-pill-btn.active {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: #fff;
+.coin-name {
+  font-size: 0.68rem;
+  color: var(--ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
-/* Address Box */
-.address-display-box {
+.coin-badge {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  color: var(--state-ver-text);
+  background: var(--state-ver-bg);
+  padding: 1px 4px;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+
+/* Dynamic Checkout Session Drawer */
+.active-session-card {
   background: var(--bg-subtle);
   border: 1px solid var(--border);
+  border-left: 4px solid var(--state-ver-text);
   border-radius: var(--radius-xs);
-  padding: 14px;
-  margin-bottom: 14px;
+  padding: 16px;
+  margin-top: 16px;
+  animation: fadeIn 0.25s ease;
 }
 
-.address-label-row {
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.session-badge-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 8px;
+}
+
+.session-status {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--state-ver-text);
+}
+
+.payment-id-display {
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-xs);
+  padding: 10px 12px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-id-code {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+
+.copy-mini-btn {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  padding: 4px 8px;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--ink-muted);
-  text-transform: uppercase;
-  margin-bottom: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-.wallet-address-code {
-  font-family: var(--font-mono);
-  font-size: 0.86rem;
-  font-weight: 600;
-  color: var(--ink);
-  word-break: break-all;
-  line-height: 1.4;
-  display: block;
+.copy-mini-btn:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
 }
 
-.copy-btn {
-  width: 100%;
+.invoice-action-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: var(--ink);
-  color: #fff;
-  border: 1px solid var(--ink);
-  border-radius: var(--radius-xs);
+  width: 100%;
   padding: 12px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
   font-size: 0.85rem;
   font-weight: 700;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.15s ease;
-  margin-bottom: 16px;
+  transition: background 0.15s ease;
+  margin-top: 8px;
 }
 
-.copy-btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
+.invoice-action-btn:hover {
+  background: #7f1d1d;
+  color: #fff;
 }
 
-.copy-btn.copied {
-  background: var(--state-ver-text);
-  border-color: var(--state-ver-text);
-}
-
-/* Accepted Assets Row */
-.assets-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 18px;
-}
-
-.asset-badge {
-  flex: 1;
-  background: var(--bg);
+/* Privacy Callout */
+.privacy-badge-box {
+  background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
-  padding: 8px;
-  text-align: center;
+  padding: 10px 12px;
+  margin-top: 14px;
+  font-size: 0.76rem;
+  color: var(--ink-secondary);
+  line-height: 1.45;
 }
 
-.asset-badge-sym {
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
+.privacy-badge-box b {
   color: var(--ink);
 }
 
-.asset-badge-name {
-  font-size: 0.7rem;
-  color: var(--ink-muted);
-}
-
-/* Security Notice */
 .security-alert {
   background: #fff8f0;
   border-left: 3px solid #d97706;

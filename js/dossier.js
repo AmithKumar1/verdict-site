@@ -738,33 +738,66 @@ class EntityDossierApp {
 
   // Public X Statements & Consistency Review
   renderPublicStatementsSection() {
-    const posts = [...(this.entity.publicStatements || [])]
-      .sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    const rawPosts = [...(this.entity.publicStatements || [])];
+    const posts = rawPosts.sort((a, b) => String(b.date || '').localeCompare(String(a.date || '')));
+    const reviews = this.entity.statementReviews || [];
+
+    const dates = posts.map(p => p.date).filter(Boolean).sort();
+    const earliestYear = dates.length ? dates[0].split('-')[0] : '2016';
+    const latestYear = dates.length ? dates[dates.length - 1].split('-')[0] : '2020';
+
+    const topicSet = new Set();
+    posts.forEach(p => {
+      if (p.topic) {
+        p.topic.split(',').forEach(t => topicSet.add(t.trim()));
+      }
+    });
+    const topicChips = Array.from(topicSet).sort();
 
     const cards = posts.map((p, idx) => {
       const external = p.tweetUrl
         ? `<a href="${this.escapeHtml(p.tweetUrl)}" target="_blank" rel="noopener noreferrer">Open original X post →</a>`
-        : p.searchUrl
-          ? `<a href="${this.escapeHtml(p.searchUrl)}" target="_blank" rel="noopener noreferrer">Locate on X →</a>`
+        : p.sourceUrl
+          ? `<a href="${this.escapeHtml(p.sourceUrl)}" target="_blank" rel="noopener noreferrer">${this.escapeHtml(p.sourceLabel || 'Wayback Archive')} ↗</a>`
           : '';
+      const topicPills = (p.topic || 'public discourse')
+        .split(',')
+        .map(t => `<span class="candidate-signal-pill" style="font-size: 0.68rem;">${this.escapeHtml(t.trim())}</span>`)
+        .join(' ');
+
       return `
-        <article class="x-statement-card">
+        <article class="x-statement-card" data-topics="${this.escapeHtml((p.topic || '').toLowerCase())}" data-text="${this.escapeHtml((p.text || '').toLowerCase())}" data-date="${this.escapeHtml(p.date || '')}">
           <div class="x-statement-top">
-            <div><span class="x-statement-index">${String(idx + 1).padStart(2, '0')}</span><span class="x-statement-kind">${this.escapeHtml(p.kind || 'PUBLIC POST')}</span></div>
+            <div><span class="x-statement-index">#${String(idx + 1).padStart(2, '0')}</span><span class="x-statement-kind">${this.escapeHtml(p.kind || 'PUBLIC POST')}</span></div>
             <time class="x-statement-date">${this.escapeHtml(p.date || 'Undated')}</time>
           </div>
-          <div class="x-statement-source"><b>${this.escapeHtml(p.handle || '')}</b><span>·</span><span>${this.escapeHtml(p.topic || 'Public discourse')}</span></div>
+          <div class="x-statement-source">
+            <b>${this.escapeHtml(p.handle || '')}</b>
+            <span>·</span>
+            <div style="display: inline-flex; gap: 4px; flex-wrap: wrap;">${topicPills}</div>
+          </div>
           <blockquote class="x-statement-quote">“${this.escapeHtml(p.text || '')}”</blockquote>
-          <div class="x-statement-foot"><span>${this.escapeHtml(p.verification || 'Public-source archival record.')}</span>${external}</div>
+          <div class="x-statement-foot">
+            <span style="font-size: 0.78rem;">${this.escapeHtml(p.verification || 'Public-source archival record.')}</span>
+            ${external}
+          </div>
         </article>
       `;
     }).join('');
 
-    const reviews = (this.entity.statementReviews || []).map(r => `
+    const reviewCards = reviews.map(r => `
       <article class="x-review-card">
-        <div class="x-review-top"><span class="x-review-label">${this.escapeHtml(r.label || 'Statement review')}</span><span class="x-review-status">${this.escapeHtml(r.status || 'REVIEW')}</span></div>
-        <p>${this.escapeHtml(r.summary || '')}</p>
-        ${r.comparisonUrl ? '<a href="' + this.escapeHtml(r.comparisonUrl) + '" target="_blank" rel="noopener noreferrer">' + this.escapeHtml(r.comparisonLabel || 'Open comparison source') + ' →</a>' : ''}
+        <div class="x-review-top">
+          <span class="x-review-label">${this.escapeHtml(r.label || 'Statement review')}</span>
+          <span class="x-review-status">${this.escapeHtml(r.status || 'REVIEW')}</span>
+        </div>
+        <p style="margin: 8px 0; font-size: 0.92rem; color: var(--ink-secondary); line-height: 1.5;">${this.escapeHtml(r.summary || '')}</p>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 10px;">
+          ${r.comparisonUrl ? '<a href="' + this.escapeHtml(r.comparisonUrl) + '" target="_blank" rel="noopener noreferrer" style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent); font-weight: 600;">' + this.escapeHtml(r.comparisonLabel || 'Open comparison source') + ' →</a>' : ''}
+          <button type="button" class="inspect-comparison-btn" data-review-id="${this.escapeHtml(r.id)}">
+            ⚖️ Inspect Comparison Evidence ↗
+          </button>
+        </div>
       </article>
     `).join('');
 
@@ -774,12 +807,56 @@ class EntityDossierApp {
 
     return `
       <div class="x-statements-shell">
-        <div class="x-statements-note">
-          <strong>How to read this section.</strong> Selected public posts are preserved with their date, handle, topic and source trail. A “consistency review” identifies a documented change in wording or a potential tension between public statements; it does not infer motive, private belief or dishonesty. Historical coverage can be incomplete because posts may be deleted, accounts may change access, or archival indexes may omit material.
-          ${archiveSearch ? '<a href="' + this.escapeHtml(archiveSearch) + '" target="_blank" rel="noopener noreferrer">Search the account on X →</a>' : ''}
+        <!-- Telemetry & Coverage Window -->
+        <div class="x-coverage-telemetry-banner">
+          <div class="x-coverage-telemetry-left">
+            <span class="kicker" style="color: var(--accent);">HISTORICAL OSINT ARCHIVE</span>
+            <h4 style="font-family: var(--font-serif); font-size: 1.3rem; margin: 4px 0 6px; color: var(--ink);">
+              Historical Public X Statements: ${this.escapeHtml(this.entity.xHandle || this.entity.name)}
+            </h4>
+            <div style="font-size: 0.85rem; color: var(--ink-secondary); line-height: 1.45;">
+              Reconstructed from Wayback Machine snapshots, court chargesheet annexures (FIR 22/2020 &amp; FIR 59/2020), and accredited contemporary reporting.
+            </div>
+          </div>
+          <div class="x-coverage-telemetry-right">
+            <div class="x-coverage-metric"><span class="metric-val">${posts.length}</span><span class="metric-lbl">Preserved</span></div>
+            <div class="x-coverage-metric"><span class="metric-val">${reviews.length}</span><span class="metric-lbl">Reviews</span></div>
+            <div class="x-coverage-metric"><span class="metric-val">${earliestYear}–${latestYear}</span><span class="metric-lbl">Window</span></div>
+          </div>
         </div>
-        <div class="x-statement-grid">${cards}</div>
-        ${reviews ? '<div class="x-review-heading"><span>Cross-time review</span><span>Evidence-led comparison</span></div><div class="x-review-grid">' + reviews + '</div>' : ''}
+
+        <div class="x-statements-note">
+          <strong>Epistemic Boundary &amp; Method:</strong> VERDICT preserves historical public posts with exact timestamps, topic tags, and cryptographic provenance. A “consistency review” identifies a documented change in wording or stance over time; it strictly does not infer motive, sincerity, or dishonesty. Historical coverage cannot be guaranteed exhaustive because deleted/suspended accounts and unindexed tweets may be omitted.
+          ${archiveSearch ? '<a href="' + this.escapeHtml(archiveSearch) + '" target="_blank" rel="noopener noreferrer">Search live account on X →</a>' : ''}
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="x-filter-toolbar">
+          <div class="x-filter-chips" role="radiogroup" aria-label="Statement Topic Filter">
+            <button type="button" class="x-chip active" data-topic="all">All Topics (${posts.length})</button>
+            ${topicChips.map(t => `<button type="button" class="x-chip" data-topic="${this.escapeHtml(t.toLowerCase())}">${this.escapeHtml(t)}</button>`).join('')}
+          </div>
+          <div class="x-filter-search-box">
+            <input type="text" id="x-statement-search" class="x-search-input" placeholder="Search statements by keyword (e.g. CAA, protest, police, Constitution)...">
+            <select id="x-statement-sort" class="x-sort-select">
+              <option value="desc">Newest First</option>
+              <option value="asc">Oldest First</option>
+            </select>
+          </div>
+          <div id="x-statement-count" style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-muted);">
+            Showing ${posts.length} of ${posts.length} preserved statements
+          </div>
+        </div>
+
+        <div id="x-statement-grid" class="x-statement-grid">${cards}</div>
+
+        ${reviewCards ? `
+          <div class="x-review-heading" style="margin-top: 42px;">
+            <span>Cross-Time Statement Reviews &amp; Candidate Inconsistencies</span>
+            <span>Analyst-Gated Public Record</span>
+          </div>
+          <div class="x-review-grid">${reviewCards}</div>
+        ` : ''}
       </div>
     `;
   }
@@ -1781,8 +1858,138 @@ class EntityDossierApp {
         e.preventDefault();
         const sourceId = sourceBtn.dataset.sourceId;
         this.openSourceModal(sourceId);
+        return;
+      }
+
+      const reviewBtn = e.target.closest('.inspect-comparison-btn');
+      if (reviewBtn && reviewBtn.dataset.reviewId) {
+        e.preventDefault();
+        this.openReviewModal(reviewBtn.dataset.reviewId);
+        return;
+      }
+
+      const chip = e.target.closest('.x-chip');
+      if (chip) {
+        e.preventDefault();
+        document.querySelectorAll('.x-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        this.filterStatements();
+        return;
       }
     });
+
+    document.addEventListener('input', (e) => {
+      if (e.target && e.target.id === 'x-statement-search') {
+        this.filterStatements();
+      }
+    });
+
+    document.addEventListener('change', (e) => {
+      if (e.target && e.target.id === 'x-statement-sort') {
+        this.sortStatements(e.target.value);
+      }
+    });
+  }
+
+  filterStatements() {
+    const activeChip = document.querySelector('.x-chip.active');
+    const topic = activeChip ? (activeChip.dataset.topic || 'all') : 'all';
+    const searchInput = document.getElementById('x-statement-search');
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+    const cards = document.querySelectorAll('.x-statement-card');
+    let visibleCount = 0;
+
+    cards.forEach(card => {
+      const cardTopics = (card.dataset.topics || '').toLowerCase();
+      const cardText = (card.dataset.text || '').toLowerCase();
+
+      const matchTopic = (topic === 'all') || cardTopics.includes(topic);
+      const matchQuery = !query || cardText.includes(query);
+
+      if (matchTopic && matchQuery) {
+        card.style.display = '';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    const countEl = document.getElementById('x-statement-count');
+    if (countEl) {
+      countEl.textContent = `Showing ${visibleCount} of ${cards.length} preserved statements`;
+    }
+  }
+
+  sortStatements(order) {
+    const grid = document.getElementById('x-statement-grid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll('.x-statement-card'));
+    cards.sort((a, b) => {
+      const dateA = a.dataset.date || '';
+      const dateB = b.dataset.date || '';
+      return order === 'asc' ? dateA.localeCompare(dateB) : dateB.localeCompare(dateA);
+    });
+    cards.forEach(c => grid.appendChild(c));
+  }
+
+  openReviewModal(reviewId) {
+    const rev = (this.entity.statementReviews || []).find(r => r.id === reviewId);
+    if (!rev || !this.modalBody || !this.modalBackdrop) return;
+
+    const stmtA = rev.statementA || {};
+    const stmtB = rev.statementB || {};
+
+    this.modalBody.innerHTML = `
+      <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px;">
+        STATEMENT COMPARISON INSPECTOR · ${this.escapeHtml(rev.status || 'REVIEW')}
+      </div>
+      <h3 style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; color: var(--ink); line-height: 1.25; margin-bottom: 12px;">
+        ${this.escapeHtml(rev.label || 'Cross-Time Consistency Review')}
+      </h3>
+      <p style="font-size: 0.95rem; color: var(--ink-secondary); line-height: 1.55; margin-bottom: 16px;">
+        ${this.escapeHtml(rev.summary || '')}
+      </p>
+
+      <div class="comparison-modal-side-by-side">
+        <div class="comparison-col">
+          <div class="comparison-col-header">
+            <span>STATEMENT A (${this.escapeHtml(stmtA.sourceType || 'HISTORICAL POST')})</span>
+            <time>${this.escapeHtml(stmtA.date || 'Earlier Date')}</time>
+          </div>
+          <blockquote class="comparison-quote">“${this.escapeHtml(stmtA.excerpt || stmtA.text || 'Statement text')}”</blockquote>
+          <div style="font-size: 0.78rem; color: var(--ink-muted);">
+            <b>Source:</b> ${this.escapeHtml(stmtA.sourceLabel || 'Public Record')}<br>
+            <b>Provenance:</b> ${this.escapeHtml(stmtA.provenance || 'Preserved web archive')}
+          </div>
+        </div>
+
+        <div class="comparison-col">
+          <div class="comparison-col-header">
+            <span>STATEMENT B (${this.escapeHtml(stmtB.sourceType || 'SUBSEQUENT STATEMENT')})</span>
+            <time>${this.escapeHtml(stmtB.date || 'Later Date')}</time>
+          </div>
+          <blockquote class="comparison-quote">“${this.escapeHtml(stmtB.excerpt || stmtB.text || 'Statement text')}”</blockquote>
+          <div style="font-size: 0.78rem; color: var(--ink-muted);">
+            <b>Source:</b> ${this.escapeHtml(stmtB.sourceLabel || 'Subsequent Filing / Record')}<br>
+            <b>Provenance:</b> ${this.escapeHtml(stmtB.provenance || 'Public record')}
+          </div>
+        </div>
+      </div>
+
+      <div style="background: rgba(184, 41, 47, 0.05); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: var(--radius-xs); margin-top: 14px;">
+        <b style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 4px;">
+          ⚖️ What This Does NOT Establish (Epistemic Boundary)
+        </b>
+        <p style="margin: 0; font-size: 0.88rem; color: var(--ink); line-height: 1.5;">
+          ${this.escapeHtml(rev.whatIsNotEstablished || 'This system cannot establish motive, sincerity, private belief, or intentional deception. A change in public statements over time may reflect genuine reconsideration, strategic communication, or contextual differences.')}
+        </p>
+      </div>
+    `;
+
+    this.modalBackdrop.classList.add('open');
+    this.modalBackdrop.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
   }
 
   initScrollSpy() {

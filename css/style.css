@@ -112,6 +112,15 @@ button, input, select, textarea {
   position: sticky;
   top: 0;
   z-index: 50;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.top-utility.is-scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-strong);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .top-utility-inner {
@@ -122,12 +131,115 @@ button, input, select, textarea {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  transition: padding 0.2s ease;
+}
+
+.top-utility.is-scrolled .top-utility-inner {
+  padding: 6px 24px;
 }
 
 .utility-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+/* Brand Link in Top Utility Bar */
+.utility-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-size: 1.02rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 2px 8px 2px 4px;
+  border-radius: var(--radius-xs);
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1;
+}
+
+.utility-brand-link:hover {
+  color: var(--accent);
+  background: var(--bg-subtle);
+  border-color: var(--border);
+}
+
+.utility-brand-link .brand-glyph {
+  font-size: 0.95rem;
+  line-height: 1;
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.utility-brand-link:hover .brand-glyph {
+  transform: scale(1.15) rotate(-6deg);
+}
+
+.utility-brand-link .brand-wordmark {
+  font-family: var(--font-display, 'Cinzel', serif);
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  line-height: 1;
+}
+
+.brand-top-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 2px;
+  padding: 1px 4px;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+/* When Scrolled Down: Emphasize Brand as Return to Top / Main Page Anchor */
+.top-utility.is-scrolled .utility-brand-link {
+  color: var(--ink);
+  background: var(--bg);
+  border-color: var(--border-strong);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.top-utility.is-scrolled .utility-brand-link:hover {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.top-utility.is-scrolled .utility-brand-link:hover .brand-top-indicator {
+  opacity: 1;
+  transform: translateX(0);
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .utility-meta-item, .utility-meta-item + .utility-sep {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .top-utility-inner {
+    padding: 6px 12px;
+  }
+  .utility-brand-link .brand-wordmark {
+    font-size: 0.88rem;
+  }
 }
 
 .live-pill {
