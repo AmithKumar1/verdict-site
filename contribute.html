@@ -1,2 +1,365 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contribute · Accountability Research</title><style>body{margin:0;background:#080b10;color:#edf4f7;font:14px Inter,system-ui,sans-serif}.wrap{max-width:860px;margin:auto;padding:32px 16px}.card{background:#10171f;border:1px solid #24323e;border-radius:16px;padding:20px}.muted{color:#97a4af;line-height:1.55}.field{display:grid;gap:6px;margin:13px 0}.field label{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:#9ba8b4}.field input,.field textarea,.field select{background:#080d12;color:#eef4f7;border:1px solid #263540;border-radius:9px;padding:10px}.field textarea{min-height:125px;resize:vertical}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{background:#10352e;border:1px solid #31776a;color:#cafff2;border-radius:9px;padding:10px 14px;cursor:pointer}.notice{padding:12px;border-left:3px solid #e6ca76;background:#181409;color:#cbc2ab}.result{display:none;margin-top:18px;padding:15px;border:1px solid #2d6b5e;border-radius:12px;background:#0d1716;white-space:pre-wrap}.ok{color:#9af0dc;font-weight:750}@media(max-width:650px){.row{grid-template-columns:1fr}}</style></head><body><div class="wrap"><div class="card"><div style="font-size:10px;letter-spacing:.16em;color:#74e4ca">COMMUNITY EVIDENCE</div><h1>Found something we should check?</h1><p class="muted">Send a public-source correction, new evidence, funding lead, relationship lead, missing source or timeline item. Your submission is staged for review. The public record does not change until it is verified.</p><div class="notice">Use public evidence here. Do not submit passwords, cookies, private messages, bank credentials or other confidential account material.</div><form id="f"><div class="row"><div class="field"><label>Type</label><select name="kind"><option value="new_evidence">New evidence</option><option value="correction">Correction</option><option value="missing_source">Missing source</option><option value="relationship">Relationship lead</option><option value="funding_lead">Funding lead</option><option value="timeline_event">Timeline event</option></select></div><div class="field"><label>Case ID</label><input name="caseId" value="case_abhijeet-dipke"></div></div><div class="field"><label>Title</label><input name="title" maxlength="180" required></div><div class="field"><label>Details</label><textarea name="details" maxlength="12000" required placeholder="State exactly what should be checked, with dates, names, amounts and context."></textarea></div><div class="field"><label>Public source URLs</label><textarea name="sourceUrls" placeholder="One URL per line"></textarea></div><div class="field"><label>Optional proposed change</label><textarea name="proposedChange" placeholder='{"date":"2026-10-03"}'></textarea></div><input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px"><div id="captcha"></div><button class="btn">Submit for review</button></form><div id="out" class="result"></div></div></div><script>async function init(){const r=await fetch("/api/community/config").catch(()=>null);if(!r||!r.ok)return;const c=await r.json();if(c.turnstileSiteKey){const s=document.createElement("script");s.src="https://challenges.cloudflare.com/turnstile/v0/api.js";s.async=true;s.defer=true;document.head.appendChild(s);const d=document.createElement("div");d.className="cf-turnstile";d.dataset.sitekey=c.turnstileSiteKey;d.dataset.action="community-submit";document.getElementById("captcha").appendChild(d)}}init();const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));document.getElementById("f").addEventListener("submit",async e=>{e.preventDefault();const f=new FormData(e.target);let proposed={};if(f.get("proposedChange")){try{proposed=JSON.parse(String(f.get("proposedChange")))}catch{alert("The proposed change must be valid JSON.");return}}const body={kind:f.get("kind"),caseId:f.get("caseId"),title:f.get("title"),details:f.get("details"),sourceUrls:String(f.get("sourceUrls")||"").split(/?
-/).map(x=>x.trim()).filter(Boolean),proposedChange:proposed,honeypot:f.get("website"),turnstileToken:window.turnstile?.getResponse?.()||undefined};const r=await fetch("/api/community/submissions",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(body)});const d=await r.json();const o=document.getElementById("out");o.style.display="block";o.innerHTML=r.ok?"<div class='ok'>Submitted · pending review</div><p class='muted'>Your staged preview is available now to this browser/network. The canonical public record is unchanged until review.</p><pre>"+esc(JSON.stringify(d.preview,null,2))+"</pre>":"<b>Submission rejected:</b> "+esc(d.error||"Request failed");if(r.ok)localStorage.setItem("communityPreviewToken",d.previewToken);});</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <title>Submit Evidence or Corrections Â· VERDICT</title>
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>âï¸</text></svg>">
+  <style>
+    .form-container {
+      max-width: var(--max-width-narrow);
+      margin: 40px auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      padding: 36px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    .form-header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 18px;
+    }
+    .form-title {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin: 6px 0 10px;
+    }
+    .form-guidance {
+      font-size: 0.95rem;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+    .notice-box {
+      background: var(--bg-subtle);
+      border-left: 3px solid var(--accent);
+      padding: 14px 18px;
+      font-size: 0.88rem;
+      color: var(--ink-secondary);
+      margin-bottom: 24px;
+    }
+    .field-group {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-secondary);
+    }
+    .field-input, .field-textarea, .field-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      padding: 10px 14px;
+      font-size: 0.95rem;
+      color: var(--ink);
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .field-input:focus, .field-textarea:focus, .field-select:focus {
+      outline: none;
+      border-color: var(--border-strong);
+      background: var(--surface);
+    }
+    .field-textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: var(--font-sans);
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) {
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+      .form-container {
+        padding: 24px 16px;
+        margin: 20px auto;
+      }
+    }
+    .submission-result {
+      display: none;
+      margin-top: 24px;
+      padding: 20px;
+      border: 1px solid var(--state-ver-border);
+      background: var(--state-ver-bg);
+      border-radius: var(--radius-sm);
+    }
+    .submission-result.error {
+      border-color: var(--accent-border);
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .submission-result pre {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <aside class="top-utility" aria-label="Publication status">
+    <div class="top-utility-inner">
+      <div class="utility-left">
+        <a href="./" class="live-pill" style="color: var(--ink);">
+          â Return to VERDICT Brief
+        </a>
+      </div>
+      <div class="utility-right">
+        <span>PUBLIC INTELLIGENCE SUBMISSION DESK</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Editorial Masthead (Compact) -->
+  <header class="masthead" style="padding: 20px 24px 16px;">
+    <div class="masthead-inner">
+      <h1 class="masthead-brand" style="font-size: 2.8rem; margin: 4px 0;">
+        <a href="./">VERDICT</a>
+      </h1>
+      <p class="masthead-descriptor" style="margin-bottom: 0;">
+        Public Accountability &amp; Open-Source Intelligence Desk
+      </p>
+    </div>
+  </header>
+
+  <main class="main-wrapper" style="padding-top: 20px;">
+    <div class="form-container">
+      <div class="form-header">
+        <span class="kicker">Participatory Accountability</span>
+        <h2 class="form-title">Submit Evidence, Corrections or Leads</h2>
+        <p class="form-guidance">
+          Our investigative dossiers are living records. If you have identified primary source filings, corrections to dates, unrecorded relationships, or evidence gaps, submit your documentation below.
+        </p>
+      </div>
+
+      <div class="notice-box">
+        <strong>Forensic Integrity Notice:</strong> All submissions must be backed by verifiable, public records or documented filings. Do not submit credentials, passwords, unverified hearsay, or private communications. Submissions are staged for editorial review before appearing in canonical publications.
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+        <div style="background: var(--bg); border-left: 3px solid var(--state-ver-text); padding: 12px 16px; font-size: 0.85rem;">
+          <b style="color: var(--state-ver-text);">â What Qualifies:</b>
+          <ul style="margin: 6px 0 0 16px; line-height: 1.5;">
+            <li>Official gazettes &amp; court rulings</li>
+            <li>Certified MCA / RoC corporate filings</li>
+            <li>Original charters &amp; public filings</li>
+            <li>Archived web pages with immutable URLs</li>
+            <li>Reporting by named journalists</li>
+          </ul>
+        </div>
+        <div style="background: var(--bg); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 0.85rem;">
+          <b style="color: var(--accent);">â What Does NOT Qualify:</b>
+          <ul style="margin: 6px 0 0 16px; line-height: 1.5;">
+            <li>Anonymous rumors or unverified tips</li>
+            <li>Stolen passwords or leaked databases</li>
+            <li>Non-consensual private messages/chats</li>
+            <li>Screenshots without provenance/context</li>
+            <li>Partisan accusations without proof</li>
+          </ul>
+        </div>
+      </div>
+
+      <form id="submission-form">
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="kind">Submission Category</label>
+            <select id="kind" name="kind" class="field-select">
+              <option value="new_evidence">New Primary Evidence</option>
+              <option value="correction">Factual Correction</option>
+              <option value="missing_source">Missing Source / URL</option>
+              <option value="relationship">Relationship Lead</option>
+              <option value="funding_lead">Funding / Financial Lead</option>
+              <option value="timeline_event">Timeline Event</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="caseId">Target Case Dossier / Target Name</label>
+            <input id="caseId" name="caseId" class="field-input" value="case_abhijeet-dipke" placeholder="e.g. case_abhijeet-dipke or Target Entity Name">
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="title">Headline / Summary of Lead *</label>
+          <input id="title" name="title" class="field-input" maxlength="180" placeholder="e.g. Primary incorporation filing for Cockroach Janta Party" required>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="details">Detailed Narrative &amp; Facts *</label>
+          <textarea id="details" name="details" class="field-textarea" maxlength="12000" placeholder="State exactly what should be checked, including dates, names, statutory record numbers, and relevant context." required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="sourceUrls">Public Source &amp; Archive URLs</label>
+          <textarea id="sourceUrls" name="sourceUrls" class="field-textarea" style="min-height: 80px;" placeholder="One URL per line (e.g. web archive, government gazette, media reporting)"></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="proposedChange">Optional Structured Data (JSON)</label>
+          <textarea id="proposedChange" name="proposedChange" class="field-textarea" style="min-height: 70px; font-family: var(--font-mono); font-size: 0.85rem;" placeholder='{"date":"2026-10-03", "jurisdiction":"Delhi"}'></textarea>
+        </div>
+
+        <!-- Honeypot -->
+        <input name="website" tabindex="-1" autocomplete="off" style="position: absolute; left: -9999px" aria-hidden="true">
+
+        <!-- Turnstile Container -->
+        <div id="captcha" style="margin-bottom: 20px;"></div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 14px;">
+          Submit for Editorial Review â
+        </button>
+      </form>
+
+      <div id="submission-result" class="submission-result" role="alert"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer" style="padding: 28px 24px;">
+    <div class="footer-inner" style="text-align: center;">
+      <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted);">
+        &copy; 2026 VERDICT Â· Public Accountability Desk Â· Submissions are preserved under cryptographic hash chains.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize Turnstile if available
+    async function initTurnstile() {
+      try {
+        const res = await fetch("/api/community/config").catch(() => null);
+        if (!res || !res.ok) return;
+        const conf = await res.json();
+        if (conf.turnstileSiteKey) {
+          const s = document.createElement("script");
+          s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+          s.async = true;
+          s.defer = true;
+          document.head.appendChild(s);
+          const d = document.createElement("div");
+          d.className = "cf-turnstile";
+          d.dataset.sitekey = conf.turnstileSiteKey;
+          d.dataset.action = "community-submit";
+          document.getElementById("captcha").appendChild(d);
+        }
+      } catch (err) {
+        console.warn("Turnstile check skipped:", err);
+      }
+    }
+    initTurnstile();
+
+    // Prefill target from URL if provided (e.g. from unindexed target search)
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetParam = urlParams.get("target");
+    if (targetParam) {
+      const caseIdInput = document.getElementById("caseId");
+      const titleInput = document.getElementById("title");
+      if (caseIdInput) caseIdInput.value = targetParam;
+      if (titleInput) titleInput.value = `Research lead: ${targetParam}`;
+    }
+
+    const escapeText = s => String(s ?? "").replace(/[&<>"]/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"
+    }[c]));
+
+    const form = document.getElementById("submission-form");
+    const resultBox = document.getElementById("submission-result");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      let proposed = {};
+      const proposedStr = formData.get("proposedChange");
+      if (proposedStr && proposedStr.trim()) {
+        try {
+          proposed = JSON.parse(String(proposedStr));
+        } catch {
+          alert("The optional structured data field must contain valid JSON.");
+          return;
+        }
+      }
+
+      const payload = {
+        kind: formData.get("kind"),
+        caseId: formData.get("caseId"),
+        title: formData.get("title"),
+        details: formData.get("details"),
+        sourceUrls: String(formData.get("sourceUrls") || "")
+          .split(/\r?\n/)
+          .map(u => u.trim())
+          .filter(Boolean),
+        proposedChange: proposed,
+        honeypot: formData.get("website"),
+        turnstileToken: window.turnstile?.getResponse?.() || undefined
+      };
+
+      try {
+        const response = await fetch("/api/community/submissions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json().catch(() => ({}));
+        resultBox.style.display = "block";
+
+        if (response.ok) {
+          resultBox.className = "submission-result";
+          resultBox.innerHTML = `
+            <div style="font-weight: 700; color: var(--state-ver-text); font-size: 1.1rem; margin-bottom: 6px;">
+              â Lead Submitted Successfully
+            </div>
+            <p style="font-size: 0.9rem; color: var(--ink-secondary); line-height: 1.5;">
+              Your staged preview token has been registered. The canonical public dossier remains unchanged until the editorial research team completes verification.
+            </p>
+            <pre>${escapeText(JSON.stringify(data.preview || data, null, 2))}</pre>
+          `;
+          if (data.previewToken) {
+            localStorage.setItem("communityPreviewToken", data.previewToken);
+          }
+          form.reset();
+        } else {
+          resultBox.className = "submission-result error";
+          resultBox.innerHTML = `
+            <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">
+              Submission Rejected
+            </div>
+            <p>${escapeText(data.error || "The server could not process this submission.")}</p>
+          `;
+        }
+      } catch (err) {
+        resultBox.style.display = "block";
+        resultBox.className = "submission-result error";
+        resultBox.innerHTML = `
+          <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px;">Network Error</div>
+          <p>${escapeText(err.message)}</p>
+        `;
+      }
+    });
+  </script>
+  <!-- Gliding Smooth Scroll (Lenis Engine) -->
+  <script src="./js/vendor/lenis.min.js"></script>
+  <script src="./js/smooth-scroll.js"></script>
+</body>
+</html>

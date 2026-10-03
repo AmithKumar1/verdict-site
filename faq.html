@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <title>Frequently Asked Questions Â· VERDICT</title>
+  <meta name="description" content="Answers to common questions about VERDICT: our use of automation, privacy rules, evidence standards, source evaluation, and limitations.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>âï¸</text></svg>">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <aside class="top-utility" aria-label="Publication status">
+    <div class="top-utility-inner">
+      <div class="utility-left">
+        <a href="./" class="live-pill" style="color: var(--ink);">
+          â Return to VERDICT Portal
+        </a>
+      </div>
+      <div class="utility-right">
+        <a href="./methodology.html">Methodology</a>
+        <a href="./limitations.html">Limitations</a>
+        <a href="./glossary.html">Glossary</a>
+        <a href="./about.html">About</a>
+        <a href="./contribute.html">Submit Lead</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Editorial Masthead (Compact) -->
+  <header class="masthead" style="padding: 24px 24px 16px;">
+    <div class="masthead-inner">
+      <div class="masthead-topline">
+        <span>KNOWLEDGE BASE Â· FREQUENTLY ASKED QUESTIONS</span>
+        <span>AUDIT &amp; EVIDENCE STANDARDS</span>
+        <span>VERSION: 2026.10</span>
+      </div>
+      <h1 class="masthead-brand" style="font-size: 2.8rem; margin: 6px 0;">
+        <a href="./">VERDICT</a>
+      </h1>
+      <p class="masthead-descriptor" style="margin-bottom: 0;">
+        Frequently Asked Questions â Core Standards, Architecture &amp; Ethics
+      </p>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div class="doc-layout">
+
+      <nav class="doc-sidebar" aria-label="FAQ Categories">
+        <div class="doc-nav-title">Categories</div>
+        <ul class="doc-toc-links">
+          <li><a href="#about-verdict" class="active">Platform Identity</a></li>
+          <li><a href="#automation-ai">Role of Automation &amp; AI</a></li>
+          <li><a href="#evidence-sources">Evidence &amp; Sources</a></li>
+          <li><a href="#identity-relationships">Identity &amp; Relationships</a></li>
+          <li><a href="#money-funding">Funding &amp; Money Flow</a></li>
+          <li><a href="#privacy-safety">Privacy &amp; Corrections</a></li>
+        </ul>
+      </nav>
+
+      <article class="doc-content">
+        <header class="doc-header">
+          <span class="kicker">Institutional FAQ</span>
+          <h1>Frequently Asked Questions</h1>
+          <p class="doc-dek">
+            Clear, unambiguous answers about what VERDICT investigates, how our verification works, what we can establish, and where our boundaries lie.
+          </p>
+        </header>
+
+        <!-- Category: Platform Identity -->
+        <section id="about-verdict" class="doc-section">
+          <h2>1. Platform Identity &amp; Purpose</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">What is Verdict?</h3>
+              <p class="faq-a">
+                VERDICT is an open-source public accountability and investigative intelligence platform. It aggregates, structures, cross-references, and verifies publicly available records concerning political organizations, campaign finance, public figures, and regulatory compliance in India.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">Is Verdict a news organization or government agency?</h3>
+              <p class="faq-a">
+                No. VERDICT is an independent open-source research initiative. We are not affiliated with any political party, ministry, law enforcement agency, or media conglomerate. We operate as an evidence-first research utility that journalists, researchers, and citizens can independently audit.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">What does "public accountability research" mean?</h3>
+              <p class="faq-a">
+                It means examining the verifiable public record of entities that exercise public authority, solicit public donations, or influence elections. We reconcile what official gazettes state, what news outlets report, and what statutory filings document, without indulging in partisan rhetoric.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Role of Automation & AI -->
+        <section id="automation-ai" class="doc-section">
+          <h2>2. Role of Automation &amp; Artificial Intelligence</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">Does Verdict use AI?</h3>
+              <p class="faq-a">
+                Yes, but solely as an orchestration and extraction tool, never as an autonomous editorial authority. We do not use language models to "generate the truth" or produce hallucinated summaries.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">What does the automated research fleet actually do?</h3>
+              <p class="faq-a">
+                Our configuration-driven fleet of 13 narrow agents performs repetitive data tasks: searching official gazettes, querying corporate RoC registries, checking web archives for historical pages, extracting dates from court orders, and calculating negation polarity to flag contradictions. All publication decisions require human editorial review.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">Can the AI make a definitive judgment on someone's guilt or character?</h3>
+              <p class="faq-a">
+                Strictly no. System rules forbid our agents from generating motives, criminal intent, or character judgments. The system only records verifiable statements: <em>"Court order X dated Y convicted Z"</em> or <em>"Filing A does not record payment B."</em>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Evidence & Sources -->
+        <section id="evidence-sources" class="doc-section">
+          <h2>3. Evidence &amp; Sources</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">What counts as evidence?</h3>
+              <p class="faq-a">
+                Evidence is an atomic observation derived from an attributable public source. This includes government gazettes, court filings, official charters, verified company records (MCA), news reporting with identifiable bylines, and public social posts. Unattributed screenshots or anonymous rumors are never published.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">What happens when two credible news organizations disagree?</h3>
+              <p class="faq-a">
+                We do not pick a favorite. Our contradiction detection engine flags conflicting claims that share an entity subject and exhibit opposite polarity. Both records are published side-by-side with an explicit <code>DISPUTED</code> badge so readers can evaluate the conflicting evidence themselves.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">What does "Unresolved" mean?</h3>
+              <p class="faq-a">
+                An <code>UNRESOLVED</code> status indicates an evidence gap: research has identified a legitimate public question or allegation, but current statutory filings or primary records neither prove nor disprove it. It represents an active research frontier, not a conclusion.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">What does "Not Found" mean?</h3>
+              <p class="faq-a">
+                "Not found" means our bounded search across specific public databases, archives, and registries yielded no matching record. It is never treated as positive proof that an event did not happenâonly that it is uncorroborated in the searched corpus.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Identity & Relationships -->
+        <section id="identity-relationships" class="doc-section">
+          <h2>4. Identity Resolution &amp; Relationships</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">Can a name match prove that two records refer to the same person?</h3>
+              <p class="faq-a">
+                Never. In a country of 1.4 billion people, identical names are ubiquitous. VERDICT requires multi-token Jaccard similarity, corporate directorship IDs (DIN), shared public domains, verified organizational roles, and timeline alignment before merging identities.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">Does a public social media interaction prove a personal relationship?</h3>
+              <p class="faq-a">
+                No. Following, liking, replying to, or mentioning a public figure demonstrates observable digital interaction. It does not establish private coordination, employment, or conspiracy. The platform records interaction edges without inferring unproven personal ties.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">If two people attend the same protest, does Verdict consider them affiliated?</h3>
+              <p class="faq-a">
+                No. Co-presence in a public space is recorded as a shared event, not an organizational partnership.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Funding & Money Flow -->
+        <section id="money-funding" class="doc-section">
+          <h2>5. Funding &amp; Money Flow</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">How does Verdict handle financial pledges versus actual payments?</h3>
+              <p class="faq-a">
+                We strictly separate announced commitments from verified receipts. For example, a senior advocate publicly announcing a â¹1 crore legal defense fund is documented as an <em>announced commitment</em>. It is never recorded as a verified transfer or personal payment without audited statutory filings or banking disclosures.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">Can a blockchain transaction graph prove who owns a cryptocurrency wallet?</h3>
+              <p class="faq-a">
+                No. A transaction graph traces movement between addresses. Unless an address has been officially attributed by a court filing, law enforcement seizure, or verified exchange disclosure, the system represents asset flow without asserting ownership.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Privacy & Safety -->
+        <section id="privacy-safety" class="doc-section">
+          <h2>6. Privacy, Security &amp; Corrections</h2>
+          <div class="faq-block">
+            <div class="faq-card">
+              <h3 class="faq-q">Does Verdict hack accounts, bypass paywalls, or buy leaked databases?</h3>
+              <p class="faq-a">
+                Under no circumstances. We collect only publicly accessible information, authorized owner-supplied exports, and archival records. We strictly reject stolen credentials, hacked databases, and non-consensual private communications.
+              </p>
+            </div>
+            <div class="faq-card">
+              <h3 class="faq-q">Can a published record be corrected or challenged?</h3>
+              <p class="faq-a">
+                Yes. If an individual or organization possesses primary evidence demonstrating an error, they can submit it via our <a href="./contribute.html" style="color:var(--accent); text-decoration:underline;">Contribution Desk</a>. Verified corrections update the canonical record and are permanently logged in our public audit trail.
+              </p>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Publication Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <span>&copy; 2026 VERDICT Â· Public Accountability &amp; Open-Source Research Desk</span>
+        <span><a href="./methodology.html" style="text-decoration: underline;">Methodology</a> Â· <a href="./limitations.html" style="text-decoration: underline;">Limitations</a> Â· <a href="./about.html" style="text-decoration: underline;">About</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Gliding Smooth Scroll (Lenis Engine) -->
+  <script src="./js/vendor/lenis.min.js"></script>
+  <script src="./js/smooth-scroll.js"></script>
+</body>
+</html>

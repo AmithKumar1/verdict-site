@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <title>Investigative Research Glossary Â· VERDICT</title>
+  <meta name="description" content="Canonical definitions of open-source intelligence, entity resolution, and evidence graph terminology used by VERDICT.">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>âï¸</text></svg>">
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <aside class="top-utility" aria-label="Publication status">
+    <div class="top-utility-inner">
+      <div class="utility-left">
+        <a href="./" class="live-pill" style="color: var(--ink);">
+          â Return to VERDICT Portal
+        </a>
+      </div>
+      <div class="utility-right">
+        <a href="./methodology.html">Methodology</a>
+        <a href="./limitations.html">Limitations</a>
+        <a href="./faq.html">FAQ</a>
+        <a href="./about.html">About</a>
+        <a href="./contribute.html">Submit Lead</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Editorial Masthead (Compact) -->
+  <header class="masthead" style="padding: 24px 24px 16px;">
+    <div class="masthead-inner">
+      <div class="masthead-topline">
+        <span>REFERENCE TERMINOLOGY Â· INVESTIGATIVE RESEARCH LEXICON</span>
+        <span>STANDARDS &amp; ONTOLOGY</span>
+        <span>VERSION: 2026.10</span>
+      </div>
+      <h1 class="masthead-brand" style="font-size: 2.8rem; margin: 6px 0;">
+        <a href="./">VERDICT</a>
+      </h1>
+      <p class="masthead-descriptor" style="margin-bottom: 0;">
+        Research Glossary â Technical, Evidentiary &amp; Ontological Terms
+      </p>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+    <div class="doc-layout">
+
+      <nav class="doc-sidebar" aria-label="Glossary Navigation">
+        <div class="doc-nav-title">Categories</div>
+        <ul class="doc-toc-links">
+          <li><a href="#core-terms" class="active">Core OSINT Concepts</a></li>
+          <li><a href="#evidence-terms">Evidence &amp; Observations</a></li>
+          <li><a href="#entity-terms">Entities &amp; Resolution</a></li>
+          <li><a href="#engine-terms">Research Engine &amp; Fleet</a></li>
+          <li><a href="#status-terms">Epistemic States</a></li>
+        </ul>
+      </nav>
+
+      <article class="doc-content">
+        <header class="doc-header">
+          <span class="kicker">Reference Desk</span>
+          <h1>Investigative Research Glossary</h1>
+          <p class="doc-dek">
+            A precise dictionary of technical, evidentiary, and architectural concepts governing VERDICTâs public accountability records.
+          </p>
+        </header>
+
+        <!-- Category: Core OSINT Concepts -->
+        <section id="core-terms" class="doc-section">
+          <h2>1. Core OSINT Concepts</h2>
+          <div class="glossary-row">
+            <div class="glossary-term">OSINT</div>
+            <div class="glossary-def">
+              <strong>Open-Source Intelligence:</strong> The discipline of collecting, analyzing, and synthesizing publicly accessible information (government gazettes, media reports, corporate filings, web archives, academic papers) into actionable research records without resorting to clandestine surveillance or illicit hacking.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Public Accountability</div>
+            <div class="glossary-def">
+              The systematic examination of verifiable records concerning institutions, public figures, electoral campaigns, and organizations that solicit public funds, hold public office, or influence civic life.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Chain of Custody</div>
+            <div class="glossary-def">
+              The immutable provenance trail linking an assertion to its originating publication, specific date, author byline, retrieval timestamp, and permanent web archive hash.
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Evidence & Observations -->
+        <section id="evidence-terms" class="doc-section">
+          <h2>2. Evidence &amp; Observations</h2>
+          <div class="glossary-row">
+            <div class="glossary-term">Observation</div>
+            <div class="glossary-def">
+              A single atomic, immutable fact extracted directly from a source (e.g. <em>"Filing #204 lists Abhijeet Dipke as Director on 16 May 2026"</em>). Observations are not opinions; they record what a specific document states.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Claim</div>
+            <div class="glossary-def">
+              A plain-language assertion derived from one or more observations that can be corroborated, disputed, or refuted against independent records.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Primary Source (Tier A)</div>
+            <div class="glossary-def">
+              Direct, unmediated legal or institutional records: government gazettes, certified Ministry of Corporate Affairs filings, court rulings, official organizational charters, and statutory declarations.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Secondary Source (Tier B/C)</div>
+            <div class="glossary-def">
+              Journalistic or analytical material: investigative reporting by named outlets with editorial oversight, academic papers, and established wire services.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Corroboration</div>
+            <div class="glossary-def">
+              The confirmation of an observation by an independent, non-affiliated source of equal or higher reliability. Multi-source corroboration upgrades an assertion from <code>REPORTED</code> to <code>DOCUMENTED</code>.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Contradiction</div>
+            <div class="glossary-def">
+              Two assertions sharing entity subjects and lexical overlap that exhibit opposite negation polarity (e.g., Outlet A reports employment concluded in 2023, while Outlet B asserts active employment in 2025). The system preserves both records side-by-side with an active dispute flag.
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Entities & Resolution -->
+        <section id="entity-terms" class="doc-section">
+          <h2>3. Entities &amp; Identity Resolution</h2>
+          <div class="glossary-row">
+            <div class="glossary-term">Entity</div>
+            <div class="glossary-def">
+              A structured node in the research graph representing a Person, Organization, Corporate Body (LLP/Pvt Ltd), Domain, Docket Case, or Source.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Entity Resolution</div>
+            <div class="glossary-def">
+              The algorithmic process of determining whether two mentions across disparate sources represent the same real-world entity, based on name tokens, corporate DINs, geographic jurisdiction, and temporal alignment.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Identity Match State</div>
+            <div class="glossary-def">
+              The verification level assigned to an entity match: <code>confirmed</code> (score â¥ 0.78 with primary identifiers), <code>probable</code> (score â¥ 0.52), <code>unresolved</code> (insufficient signal overlap), or <code>conflicted</code> (contradictory attributes).
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Public Interaction</div>
+            <div class="glossary-def">
+              A verifiable public digital act (a reply, mention, quote, or comment). Demonstrates public interaction, not a private personal relationship.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Interaction Edge</div>
+            <div class="glossary-def">
+              A directed graph edge connecting two entities derived strictly from observable public interactions, with recorded first-seen and last-seen dates.
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Research Engine & Fleet -->
+        <section id="engine-terms" class="doc-section">
+          <h2>4. Research Engine &amp; Fleet</h2>
+          <div class="glossary-row">
+            <div class="glossary-term">Adaptive Research Loop</div>
+            <div class="glossary-def">
+              A dynamic execution loop where discoveries in round N generate targeted research tasks for round N+1, stopping when expected information gain falls below a mathematical threshold or reaches the hop budget.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Research Hop</div>
+            <div class="glossary-def">
+              A traversal step in the investigative graph, moving from an initial target to a newly discovered connected entity (e.g. from a company to its directors).
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Hop Decay</div>
+            <div class="glossary-def">
+              A mathematical penalty reducing the task priority of distant indirect connections to prevent research drift into irrelevant entities.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Bounded Negative Evidence</div>
+            <div class="glossary-def">
+              A formal research finding that a search query yielded zero records within a explicitly defined public corpus, avoiding the fallacy of declaring that absence proves non-existence.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Publication Gate</div>
+            <div class="glossary-def">
+              The mandatory security filter that purges internal tokens, model parameters, and raw private files before generating the public-safe web projection.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">Tripartite Record</div>
+            <div class="glossary-def">
+              VERDICTâs signature summary structure separating findings into three distinct columns: What is Documented, What is Reported, and What Remains Unresolved.
+            </div>
+          </div>
+        </section>
+
+        <!-- Category: Epistemic States -->
+        <section id="status-terms" class="doc-section">
+          <h2>5. Epistemic Claim States</h2>
+          <div class="glossary-row">
+            <div class="glossary-term">DOCUMENTED</div>
+            <div class="glossary-def">
+              Directly corroborated by a primary official record, statutory filing, or direct corporate charter.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">REPORTED</div>
+            <div class="glossary-def">
+              Credibly reported by established news organizations with on-record bylines, but uncorroborated by primary statutory filings.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">ALLEGED</div>
+            <div class="glossary-def">
+              A person or organization has formally asserted a public claim, but underlying proof remains incomplete.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">DISPUTED</div>
+            <div class="glossary-def">
+              Two or more credible sources materially contradict each other; both records are preserved side-by-side.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">REFUTED</div>
+            <div class="glossary-def">
+              Direct primary evidence or authoritative judicial findings positively disprove the claim.
+            </div>
+          </div>
+          <div class="glossary-row">
+            <div class="glossary-term">UNRESOLVED</div>
+            <div class="glossary-def">
+              A legitimate research inquiry where current public records yield no conclusive corroboration; held as an explicit evidence gap.
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Publication Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <span>&copy; 2026 VERDICT Â· Public Accountability &amp; Open-Source Research Desk</span>
+        <span><a href="./methodology.html" style="text-decoration: underline;">Methodology</a> Â· <a href="./limitations.html" style="text-decoration: underline;">Limitations</a> Â· <a href="./faq.html" style="text-decoration: underline;">FAQ</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Gliding Smooth Scroll (Lenis Engine) -->
+  <script src="./js/vendor/lenis.min.js"></script>
+  <script src="./js/smooth-scroll.js"></script>
+</body>
+</html>
