@@ -32,7 +32,8 @@
   <title>VERDICT · Public Accountability &amp; Open-Source Research</title>
 
   <link rel="stylesheet" href="./css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/favicon.png">
 </head>
 <body>
 
@@ -41,7 +42,7 @@
     <div class="top-utility-inner">
       <div class="utility-left">
         <a href="./" class="utility-brand-link" id="utility-brand-home" aria-label="VERDICT Home and Return to Top" title="VERDICT — Click to return to top / main page">
-          <span class="brand-glyph" aria-hidden="true">⚖️</span>
+          <img src="./assets/verdict-logo.png" alt="" class="brand-logo-img" aria-hidden="true">
           <span class="brand-wordmark">VERDICT</span>
           <span class="brand-top-indicator" aria-hidden="true">TOP ↑</span>
         </a>
@@ -63,6 +64,7 @@
         <a href="./faq.html">FAQ</a>
         <a href="./glossary.html">Glossary</a>
         <a href="./about.html">About</a>
+        <a href="#contact">Contact</a>
         <a href="./contribute.html">Submit Lead</a>
         <a href="./fund.html" style="color: var(--accent); font-weight: 700;">Fund Research ★</a>
         <button type="button" class="search-shortcut-btn" onclick="document.getElementById('search-input').focus()" title="Press / to search">
@@ -82,7 +84,9 @@
         <span>EVIDENCE-FIRST RECONCILIATION</span>
       </div>
       <h1 class="masthead-brand">
-        <a href="./">VERDICT</a>
+        <a href="./">
+          <img src="./assets/verdict-logo.png" alt="VERDICT emblem" class="masthead-emblem">VERDICT
+        </a>
       </h1>
       <p class="masthead-descriptor">
         Evidence-backed public research, preserved sources, and auditable records.
@@ -98,6 +102,7 @@
         <a href="#evidence">Evidence</a>
         <a href="#timeline">Chronology</a>
         <a href="#money">Money Trail</a>
+        <a href="#contact">Contact</a>
         <a href="./about.html">About</a>
         <a href="./contribute.html">Submit Lead</a>
         <a href="./fund.html" style="color: var(--accent); font-weight: 700;">Fund Research ★</a>
@@ -775,6 +780,80 @@
       </div>
     </section>
 
+    <!-- Dedicated Contact Section: Signalroom -->
+    <section id="contact" class="contact-section" data-reveal aria-labelledby="contact-heading">
+      <div class="contact-card">
+        <div class="contact-header">
+          <div class="contact-kicker-row">
+            <span class="kicker" style="color: var(--accent);">EDITORIAL &amp; INVESTIGATIVE DESK</span>
+            <span class="identity-badge confirmed" style="font-size: 0.7rem;">END-TO-END ENCRYPTED</span>
+          </div>
+          <h2 id="contact-heading" class="contact-title">Contact Signalroom</h2>
+          <p class="contact-dek">
+            Signalroom serves as the primary editorial, research verification, and communications desk for VERDICT. 
+            Send investigative leads, public documentation, statutory filings, corrections, or press and institutional inquiries directly.
+          </p>
+        </div>
+
+        <div class="contact-body-grid">
+          <!-- Primary Channel Box -->
+          <div class="contact-channel-box">
+            <div class="channel-label">OFFICIAL DIRECT CHANNEL</div>
+            <div class="channel-email-wrap">
+              <a href="mailto:signalroom@atomicmail.io" class="channel-email-link" title="Send email to Signalroom">
+                <span class="email-icon">✉️</span>
+                <span class="email-address">signalroom@atomicmail.io</span>
+              </a>
+              <button type="button" id="copy-contact-email-btn" class="copy-email-btn" onclick="navigator.clipboard.writeText('signalroom@atomicmail.io'); this.textContent='✓ Copied'; setTimeout(() => this.textContent='📋 Copy', 2500);" title="Copy email address to clipboard">
+                📋 Copy
+              </button>
+            </div>
+            <p class="channel-hint">
+              Click to open in your default mail application or copy to your secure encrypted mail provider.
+            </p>
+          </div>
+
+          <!-- Desk Protocols & Scope Grid -->
+          <div class="contact-protocols-grid">
+            <div class="protocol-card">
+              <div class="protocol-num">01</div>
+              <div class="protocol-title">Documentary Leads &amp; Whistleblowers</div>
+              <p class="protocol-text">
+                Primary statutory records, MCA registries, court dockets, tenders, and evidentiary disclosures.
+              </p>
+            </div>
+
+            <div class="protocol-card">
+              <div class="protocol-num">02</div>
+              <div class="protocol-title">Fact Rebuttals &amp; Corrections</div>
+              <p class="protocol-text">
+                Formal evidentiary challenges and factual corrections supported by certified public documentation.
+              </p>
+            </div>
+
+            <div class="protocol-card">
+              <div class="protocol-num">03</div>
+              <div class="protocol-title">Institutional &amp; Media Inquiries</div>
+              <p class="protocol-text">
+                Academic collaboration, open-source dataset usage, methodology queries, and legal correspondence.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Privacy & Source Protection Commitment -->
+        <div class="contact-footer-notice">
+          <div class="notice-icon">🛡️</div>
+          <div class="notice-text">
+            <strong>Source Protection &amp; Confidentiality Guarantee:</strong>
+            Signalroom operates under strict journalistic confidentiality and data minimization standards. 
+            VERDICT does not track visitor IPs, employs zero advertising or third-party analytical pixels, and never exposes personal identities, personal emails, or private credentials. 
+            All communications are retained solely for evidentiary verification.
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Publication Footer -->
@@ -782,7 +861,10 @@
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
-          <h4>VERDICT</h4>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <img src="./assets/verdict-logo.png" alt="" style="width: 28px; height: 28px; border-radius: 4px; object-fit: cover;">
+            <h4 style="margin: 0;">VERDICT</h4>
+          </div>
           <p>
             An open-source investigative intelligence platform reconciling public records, political networks, and campaign financing in India.
           </p>
@@ -815,10 +897,21 @@
             <li><a href="./contribute.html">Submit Public Record</a></li>
           </ul>
         </div>
+
+        <div class="footer-col">
+          <h5>Contact Desk</h5>
+          <ul>
+            <li><a href="#contact" style="color: var(--accent); font-weight: 700;">Contact Signalroom ↗</a></li>
+            <li><a href="mailto:signalroom@atomicmail.io" style="font-family: var(--font-mono); font-size: 0.78rem; word-break: break-all;">signalroom@atomicmail.io</a></li>
+            <li><a href="./contribute.html">Submit Evidence Lead</a></li>
+            <li><a href="./methodology.html#verification">Verification Standards</a></li>
+            <li><a href="./about.html">About Signalroom Desk</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="footer-bottom">
-        <span>&copy; 2026 VERDICT · Public Accountability &amp; Open-Source Research Desk</span>
+        <span>&copy; 2026 VERDICT · Public Accountability &amp; Open-Source Research Desk · Public Contact: Signalroom</span>
         <span>Built with editorial restraint, verified sources &amp; zero tracking scripts.</span>
       </div>
     </div>
