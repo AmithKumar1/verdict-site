@@ -588,4 +588,25 @@ class VerdictApp {
 // Initialise upon DOM load
 document.addEventListener('DOMContentLoaded', () => {
   window.verdictApp = new VerdictApp();
+
+  // Setup homepage wallet copy button
+  const homeCopyBtn = document.getElementById('home-copy-wallet-btn');
+  const homeWalletAddr = document.getElementById('home-wallet-addr');
+  const homeCopyStatus = document.getElementById('home-copy-status');
+  if (homeCopyBtn && homeWalletAddr) {
+    homeCopyBtn.addEventListener('click', async () => {
+      const addr = homeWalletAddr.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(addr);
+        homeCopyBtn.textContent = '✓ Copied Address!';
+        if (homeCopyStatus) homeCopyStatus.textContent = 'Copied to clipboard. Paste into MetaMask.';
+        setTimeout(() => {
+          homeCopyBtn.textContent = '📋 Copy Wallet Address';
+          if (homeCopyStatus) homeCopyStatus.textContent = '';
+        }, 3000);
+      } catch {
+        window.prompt('Copy public wallet address:', addr);
+      }
+    });
+  }
 });

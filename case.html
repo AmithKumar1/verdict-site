@@ -40,12 +40,39 @@
         <span class="utility-sep">|</span>
         <a href="./methodology.html">Methodology</a>
         <a href="./limitations.html">Limitations</a>
+        <a href="./api.html">API</a>
+        <a href="./fund.html" style="color: var(--accent); font-weight: 700;">Fund Research ★</a>
         <button type="button" id="top-challenge-btn" class="challenge-pill-btn">
           Challenge Entry
         </button>
       </div>
     </div>
   </aside>
+
+  <!-- Sticky Researcher Mode Bar (Toggled on/off) -->
+  <div id="researcher-toolbar" class="researcher-toolbar" aria-label="Researcher Tools">
+    <div class="researcher-toolbar-badge">
+      <span>🔬 RESEARCHER MODE ACTIVE</span>
+      <span style="color: #94a3b8; font-weight: normal;">| Deep OSINT Overlays &amp; Raw Data Trees Unveiled</span>
+    </div>
+    <div class="researcher-toolbar-actions">
+      <button type="button" class="researcher-tool-btn" id="rbar-export-json">
+        📥 JSON Case Bundle
+      </button>
+      <button type="button" class="researcher-tool-btn" id="rbar-export-csv">
+        📊 CSV Claims Ledger
+      </button>
+      <button type="button" class="researcher-tool-btn" id="rbar-export-manifest">
+        🔒 Evidence Manifest (SHA-256)
+      </button>
+      <button type="button" class="researcher-tool-btn" id="rbar-query-api">
+        🔌 Query REST API
+      </button>
+      <button type="button" class="researcher-tool-btn" id="rbar-exit" style="color: #ef4444; border-color: #7f1d1d;">
+        ✕ Exit Researcher Mode
+      </button>
+    </div>
+  </div>
 
   <!-- Editorial Masthead (Compact) -->
   <header class="masthead" style="padding: 24px 24px 18px;">
@@ -116,6 +143,26 @@
     <div class="modal-dialog">
       <button type="button" id="diff-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
       <div id="diff-modal-content">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Identity Resolution & Disambiguation Modal -->
+  <div id="entity-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="entity-modal-title">
+    <div class="modal-dialog evidence-modal-dialog">
+      <button type="button" id="entity-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div id="entity-modal-content">
+        <!-- Injected dynamically by case.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Public REST API Query Modal -->
+  <div id="api-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="api-modal-title">
+    <div class="modal-dialog evidence-modal-dialog">
+      <button type="button" id="api-modal-close-btn" class="modal-close-btn" aria-label="Close dialog">&times;</button>
+      <div id="api-modal-content">
         <!-- Injected dynamically by case.js -->
       </div>
     </div>
@@ -202,7 +249,9 @@
           <li><a href="#section-versioning">Corrections &amp; Version History</a></li>
           <li><a href="#section-coverage">Research Coverage Dashboard</a></li>
           <li><a href="#section-audit">Public Audit Trail</a></li>
+          <li><a href="./api.html">Public Research API</a></li>
           <li><a href="./contribute.html">Submit Lead / Evidence</a></li>
+          <li><a href="./fund.html" style="color: var(--accent); font-weight: 700;">Fund Independent Research ★</a></li>
         </ul>
       </div>
     </div>

@@ -1088,6 +1088,71 @@ button, input, select, textarea {
   line-height: 1.5;
 }
 
+/* Fund an Investigation Callout (Homepage) */
+.fund-callout-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 4px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 36px 32px;
+  margin-bottom: 40px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.fund-callout-inner {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 36px;
+  align-items: center;
+}
+
+@media (max-width: 940px) {
+  .fund-callout-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fund-mini-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--ink);
+  border-radius: var(--radius-xs);
+  padding: 20px;
+}
+
+/* Reusable Funding Disclosure Banner (for Cases, Dossiers, and Portals) */
+.funding-disclosure-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--state-rep-bg);
+  color: var(--state-rep-text);
+  border: 1px solid var(--state-rep-border);
+  border-radius: var(--radius-xs);
+  padding: 3px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.funding-disclosure-banner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--state-rep-text);
+  border-radius: var(--radius-xs);
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.funding-disclosure-banner p {
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  line-height: 1.5;
+  margin: 6px 0 0;
+}
+
 /* Contribute Callout */
 .contribute-banner {
   background: var(--bg-subtle);

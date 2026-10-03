@@ -797,3 +797,101 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ==========================================================================
+   Researcher Mode Toolbar & Deep Overlays
+   ========================================================================== */
+.researcher-toolbar {
+  display: none;
+  background: #111417;
+  color: #f1f1eb;
+  padding: 10px 24px;
+  border-bottom: 2px solid var(--accent);
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+}
+body.researcher-mode-active .researcher-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.researcher-toolbar-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fbbf24;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.researcher-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.researcher-tool-btn {
+  background: #1f2937;
+  color: #f3f4f6;
+  border: 1px solid #374151;
+  padding: 4px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  transition: all 0.15s ease;
+}
+.researcher-tool-btn:hover {
+  background: #374151;
+  color: #ffffff;
+  border-color: #4b5563;
+}
+.researcher-toggle-active {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+
+body.researcher-mode-active .researcher-meta-tag {
+  display: inline-block !important;
+}
+.researcher-meta-tag {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  background: #2a313a;
+  color: #cbd5e1;
+  padding: 1px 6px;
+  border-radius: 2px;
+  margin-right: 6px;
+  border: 1px solid #475569;
+}
+.researcher-meta-tag.hash {
+  background: #1e293b;
+  color: #94a3b8;
+  word-break: break-all;
+}
+
+/* Coverage progress bars */
+.coverage-bar-track {
+  height: 8px;
+  background: var(--bg-subtle);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-top: 6px;
+}
+.coverage-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+.coverage-bar-fill.full { background: #1e5e3a; }
+.coverage-bar-fill.partial { background: #855a15; }
+.coverage-bar-fill.gap { background: #b3261e; }
+

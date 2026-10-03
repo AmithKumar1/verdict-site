@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="VERDICT Research API: Machine-readable investigative intelligence, first-class evidence packets, source preservation archives, deterministic entity resolution, and public audit trails.">
+  <meta name="author" content="VERDICT Research Desk">
+  <meta property="og:title" content="VERDICT · Open Research API & Programmatic Protocol">
+  <meta property="og:description" content="Open-source investigative intelligence API. Programmatic access to cases, claims, evidence packets, and cryptographic source manifests.">
+  <meta property="og:type" content="article">
+
+  <link rel="canonical" href="https://www.verdict.is-an.org/api.html">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <title>VERDICT · Open Research API &amp; Programmatic Protocol</title>
+
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚖️</text></svg>">
+  <style>
+    .api-endpoint-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+    .get-badge {
+      background: var(--state-ver-bg);
+      color: var(--state-ver-text);
+      border: 1px solid var(--state-ver-border);
+    }
+    .post-badge {
+      background: var(--state-doc-bg);
+      color: var(--state-doc-text);
+      border: 1px solid var(--state-doc-border);
+    }
+    .auth-badge {
+      background: var(--state-gap-bg);
+      color: var(--state-gap-text);
+      border: 1px solid var(--state-gap-border);
+      font-size: 0.68rem;
+      padding: 2px 6px;
+      margin-left: 6px;
+    }
+    .code-block {
+      background: #111417;
+      color: #f1f1eb;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      padding: 16px 20px;
+      border-radius: var(--radius-xs);
+      overflow-x: auto;
+      margin: 14px 0 20px;
+      line-height: 1.5;
+      border: 1px solid #2a313a;
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .code-param-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 12px 0 18px;
+    }
+    .code-param-table th, .code-param-table td {
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+    .code-param-table th {
+      background: var(--surface-alt);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .copy-snippet-btn {
+      float: right;
+      background: transparent;
+      border: 1px solid #4a5568;
+      color: #cbd5e1;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .copy-snippet-btn:hover {
+      background: #2d3748;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#api-content">Skip to documentation</a>
+
+  <!-- Top Institutional Utility Bar -->
+  <aside class="top-utility" aria-label="Documentation status">
+    <div class="top-utility-inner">
+      <div class="utility-left">
+        <a href="./" class="live-pill" style="color: var(--ink);">
+          ← Return to VERDICT Home
+        </a>
+        <span class="utility-sep">|</span>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>OPEN RESEARCH INFRASTRUCTURE · REST PROTOCOL</span>
+      </div>
+      <div class="utility-right">
+        <a href="./case.html">Case Desk</a>
+        <a href="./dossier.html">Entity Dossiers</a>
+        <a href="./methodology.html">Methodology</a>
+        <a href="./limitations.html">Limitations</a>
+        <a href="./contribute.html">Submit Lead</a>
+        <a href="./fund.html" style="color: var(--accent); font-weight: 700;">Fund Research ★</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Editorial Masthead (Compact) -->
+  <header class="masthead" style="padding: 24px 24px 16px;">
+    <div class="masthead-inner">
+      <div class="masthead-topline">
+        <span>MACHINE-READABLE INVESTIGATIVE PROTOCOL</span>
+        <span>REPRODUCIBLE OSINT ARCHITECTURE</span>
+        <span>SPECIFICATION VERSION: 2026.10-RFC</span>
+      </div>
+      <h1 class="masthead-brand" style="font-size: 2.8rem; margin: 6px 0;">
+        <a href="./">VERDICT</a>
+      </h1>
+      <p class="masthead-descriptor" style="margin-bottom: 0;">
+        Public Research API &amp; Programmatic Intelligence Specification
+      </p>
+    </div>
+  </header>
+
+  <main class="main-wrapper" id="api-content">
+    <div class="doc-layout">
+
+      <!-- Table of Contents Sidebar -->
+      <nav class="doc-sidebar" aria-label="API Documentation Index">
+        <div class="doc-nav-title">API Specification</div>
+        <ul class="doc-toc-links">
+          <li><a href="#overview" class="active">1. Architecture &amp; Base URL</a></li>
+          <li><a href="#authentication">2. Authentication &amp; Rate Limits</a></li>
+          <li><a href="#epistemic-schemas">3. Epistemic Schemas</a></li>
+          <li><a href="#endpoints-read">4. Public Read Routes</a></li>
+          <li><a href="#endpoint-search">&nbsp;&nbsp;↳ GET /api/search</a></li>
+          <li><a href="#endpoint-cases">&nbsp;&nbsp;↳ GET /api/cases</a></li>
+          <li><a href="#endpoint-case-detail">&nbsp;&nbsp;↳ GET /api/cases/:id</a></li>
+          <li><a href="#endpoint-evidence">&nbsp;&nbsp;↳ GET /api/evidence/:claimId</a></li>
+          <li><a href="#endpoint-archive">&nbsp;&nbsp;↳ GET /api/sources/archive</a></li>
+          <li><a href="#endpoint-coverage">&nbsp;&nbsp;↳ GET /api/coverage</a></li>
+          <li><a href="#endpoint-entities">&nbsp;&nbsp;↳ GET /api/entities/:id</a></li>
+          <li><a href="#endpoint-audits">&nbsp;&nbsp;↳ GET /api/audit-trail</a></li>
+          <li><a href="#endpoint-contradictions">&nbsp;&nbsp;↳ GET /api/research/contradictions</a></li>
+          <li><a href="#endpoint-challenge">5. Factual Challenge (POST)</a></li>
+          <li><a href="#endpoint-research-run">6. Autonomous Research (POST)</a></li>
+          <li><a href="#integrity-manifest">7. Cryptographic Manifests</a></li>
+          <li><a href="#terms-attribution">8. Terms &amp; Attribution</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main Longform Content -->
+      <article class="doc-content">
+        <header class="doc-header">
+          <span class="kicker">Developer &amp; Analyst Infrastructure</span>
+          <h1>VERDICT Public Research API</h1>
+          <p class="doc-dek">
+            Structured, cryptographic, and epistemic programmatic access for investigative journalists, computational social scientists, legal scholars, and accountability audits.
+          </p>
+        </header>
+
+        <!-- Section 1 -->
+        <section id="overview" class="doc-section">
+          <h2>1. Architecture &amp; Base URLs</h2>
+          <p>
+            VERDICT provides a dual-surface API architecture designed with strict separation between public read-only verification data and the protected mutation pipeline.
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 16px 0;">
+            <div class="card" style="padding: 16px; background: var(--surface);">
+              <span class="identity-badge confirmed">LOCAL-FIRST RESEARCH ENGINE</span>
+              <h4 style="margin: 8px 0 4px; font-family: var(--font-mono); font-size: 0.95rem;">http://127.0.0.1:8787</h4>
+              <p style="font-size: 0.85rem; color: var(--ink-secondary);">
+                Default binding for the node research daemon. Serves local query resolution, adaptive web scraping, and research token-authenticated operations.
+              </p>
+            </div>
+            <div class="card" style="padding: 16px; background: var(--surface);">
+              <span class="identity-badge probable">PUBLIC VERIFICATION MIRROR</span>
+              <h4 style="margin: 8px 0 4px; font-family: var(--font-mono); font-size: 0.95rem;">https://www.verdict.is-an.org/api</h4>
+              <p style="font-size: 0.85rem; color: var(--ink-secondary);">
+                Public projection serving static immutable JSON snapshots, verified evidence manifests, and audited case bundles.
+              </p>
+            </div>
+          </div>
+          <div class="callout-principle">
+            <strong>Immutable Projection Rule:</strong> The public API exposes only verified, attributable, and publishable records. Internal investigative notes, quarantined Tier-E social media chatter, and private whistleblower leads are strictly ring-fenced behind institutional firewalls.
+          </div>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="authentication" class="doc-section">
+          <h2>2. Authentication &amp; Rate Limits</h2>
+          <p>
+            All standard retrieval routes (<code>GET</code>) and public community challenge submissions (<code>POST /api/challenge</code>) are <strong>unauthenticated</strong>.
+          </p>
+          <table class="code-param-table">
+            <thead>
+              <tr>
+                <th>Tier</th>
+                <th>Header / Credential</th>
+                <th>Rate Limit</th>
+                <th>Allowed Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Public / Academic</strong></td>
+                <td>None required</td>
+                <td>60 requests / min / IP</td>
+                <td>Read cases, entities, evidence packets, archives, and submit challenges</td>
+              </tr>
+              <tr>
+                <td><strong>Desk Researcher</strong></td>
+                <td><code>x-research-token: &lt;OSINT_RESEARCH_TOKEN&gt;</code></td>
+                <td>Governed by task budget (100 req/burst)</td>
+                <td>Execute automated research sweeps, ingest claims, record leads</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="epistemic-schemas" class="doc-section">
+          <h2>3. Epistemic Schemas &amp; Classifications</h2>
+          <p>
+            Every claim and evidence packet returned by the API embeds strict epistemic state tags:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0;">
+            <div style="background: var(--state-doc-bg); border: 1px solid var(--state-doc-border); padding: 12px; border-radius: 2px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--state-doc-text); font-size: 0.8rem;">DOCUMENTED</span>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 4px;">Supported directly by official statutory filings, gazettes, corporate registries, or signed charters.</p>
+            </div>
+            <div style="background: var(--state-rep-bg); border: 1px solid var(--state-rep-border); padding: 12px; border-radius: 2px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--state-rep-text); font-size: 0.8rem;">REPORTED</span>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 4px;">Attributable public reporting from established news organizations with editorial oversight.</p>
+            </div>
+            <div style="background: var(--state-gap-bg); border: 1px solid var(--state-gap-border); padding: 12px; border-radius: 2px;">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--state-gap-text); font-size: 0.8rem;">UNRESOLVED GAP</span>
+              <p style="font-size: 0.78rem; color: var(--ink-secondary); margin-top: 4px;">Public allegation or pledge with zero statutory bank records or official corroboration found in searched corpus.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 4: Public Read Routes -->
+        <section id="endpoints-read" class="doc-section">
+          <h2>4. Public Read Routes</h2>
+
+          <!-- Health -->
+          <div id="endpoint-health" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/health</code></h3>
+            <p>System heartbeat, node timestamp, and mutation lockdown state.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/health"
+
+// Response (200 OK)
+{
+  "ok": true,
+  "service": "research-api",
+  "time": "2026-10-03T16:40:00.000Z",
+  "readOnlyMutationsDisabled": false
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Search -->
+          <div id="endpoint-search" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/search?q={query}&amp;type={type}&amp;state={state}</code></h3>
+            <p>Full-text multi-kind search across investigations, entities, claims, relationships, funding, and events.</p>
+            <table class="code-param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Default</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>q</code></td>
+                  <td>string</td>
+                  <td><code>""</code></td>
+                  <td>Search keywords (matches titles, summaries, names, notes)</td>
+                </tr>
+                <tr>
+                  <td><code>type</code></td>
+                  <td>string</td>
+                  <td><code>"all"</code></td>
+                  <td>Filter by record kind: <code>case</code>, <code>entity</code>, <code>claim</code>, <code>relationship</code>, <code>event</code>, <code>funding</code></td>
+                </tr>
+                <tr>
+                  <td><code>state</code></td>
+                  <td>string</td>
+                  <td><code>"all"</code></td>
+                  <td>Filter by epistemic state: <code>documented</code>, <code>reported</code>, <code>alleged</code>, <code>refuted</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/search?q=Cockroach&type=case"
+
+// Response (200 OK)
+{
+  "query": "cockroach",
+  "count": 1,
+  "records": [
+    {
+      "kind": "case",
+      "id": "case_abhijeet-dipke",
+      "slug": "abhijeet-dipke",
+      "title": "The Architecture of the Cockroach Janta Party: Political Past, Legal Funding, and Public Demands",
+      "status": "RESEARCHING"
+    }
+  ]
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Cases -->
+          <div id="endpoint-cases" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/cases</code></h3>
+            <p>Lists all active public accountability investigations with layer metrics.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/cases"
+
+// Response (200 OK)
+{
+  "count": 1,
+  "cases": [
+    {
+      "id": "case_abhijeet-dipke",
+      "slug": "abhijeet-dipke",
+      "title": "The Architecture of the Cockroach Janta Party: Political Past, Legal Funding, and Public Demands",
+      "status": "RESEARCHING",
+      "claimCount": 6,
+      "sourceCount": 6,
+      "relationshipCount": 5,
+      "eventCount": 4,
+      "openQuestionsCount": 4,
+      "versionCount": 3
+    }
+  ]
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Case Detail -->
+          <div id="endpoint-case-detail" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/cases/:idOrSlug</code></h3>
+            <p>Fetches the complete investigative case bundle including connected claims, entity network, timeline events, funding ledgers, and open questions.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/cases/abhijeet-dipke"</code></pre>
+            </div>
+          </div>
+
+          <!-- Evidence Packet -->
+          <div id="endpoint-evidence" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/evidence/:claimId</code></h3>
+            <p>Fetches a First-Class Evidence Packet for a specific claim. Returns supporting evidence, primary sources, secondary corroboration, retrieval timestamps, cryptographic hash, and verification status.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/evidence/claim_dipke_cjp_founding"
+
+// Response (200 OK)
+{
+  "claimId": "claim_dipke_cjp_founding",
+  "code": "CLM-001",
+  "claim": "Abhijeet Dipke is the publicly declared founder and convenor of the Cockroach Janta Party.",
+  "state": "documented",
+  "attribution": "Official Charter &amp; Public Declaration (May 2026)",
+  "evidencePacket": {
+    "primarySourceId": "src_cjp_official",
+    "verificationStatus": "VERIFIED_PRIMARY",
+    "archiveUrl": "https://web.archive.org/web/20260915120000/https://www.cockroachjantaparty.org/",
+    "contentHash": "sha256-a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0",
+    "lastChecked": "2026-10-03T04:40:00Z"
+  }
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Source Archive -->
+          <div id="endpoint-archive" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/sources/archive</code></h3>
+            <p>Returns the Source Preservation Archive: immutable cold-storage snapshot URLs, original publication sources, and SHA-256 verification digests.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/sources/archive"</code></pre>
+            </div>
+          </div>
+
+          <!-- Coverage -->
+          <div id="endpoint-coverage" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/coverage</code></h3>
+            <p>Dynamic research coverage index: sources swept, documents examined, claims verified, and explicitly declared investigative limitations.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/coverage"
+
+// Response (200 OK)
+{
+  "summary": {
+    "sourcesSearched": 38,
+    "sourcesYieldingData": 24,
+    "documentsReviewed": 183,
+    "claimsExtracted": 6,
+    "claimsVerified": 5,
+    "openQuestionsCount": 4,
+    "contradictionsCount": 2
+  },
+  "epistemicRule": "No evidence found in searched corpus ≠ evidence does not exist.",
+  "totalEntitiesResolved": 10,
+  "totalSourcesPreserved": 6,
+  "activeCasesCount": 1
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Entities -->
+          <div id="endpoint-entities" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/entities/:id</code></h3>
+            <p>Full entity dossier projection with associated claims, corporate relationships, financial interactions, and resolved aliases.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/entities/person_abhijeet-dipke"</code></pre>
+            </div>
+          </div>
+
+          <!-- Contradictions -->
+          <div id="endpoint-contradictions" style="margin-bottom: 28px;">
+            <h3><span class="api-endpoint-badge get-badge">GET</span> <code>/api/research/contradictions</code></h3>
+            <p>Real-time contradiction detection engine identifying statements, public pledges, and official records that cannot simultaneously be accurate.</p>
+            <div class="code-block">
+              <pre><code>curl -s "http://127.0.0.1:8787/api/research/contradictions"</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section 5: Challenge Submission -->
+        <section id="endpoint-challenge" class="doc-section">
+          <h2>5. Factual Challenge Submission</h2>
+          <p>
+            <span class="api-endpoint-badge post-badge">POST</span> <code>/api/challenge</code>
+          </p>
+          <p>
+            VERDICT invites external researchers, subjects, and institutional representatives to challenge any published claim. Submissions enter a non-mutating analyst verification queue and log a cryptographic audit event.
+          </p>
+          <table class="code-param-table">
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>claimId</code></td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>ID of the claim or case being challenged (e.g. <code>claim_dipke_sibal_legal_fund</code>)</td>
+              </tr>
+              <tr>
+                <td><code>reason</code></td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Specific explanation of factual error, date omission, or counter-evidence (min 5 chars)</td>
+              </tr>
+              <tr>
+                <td><code>evidenceUrl</code></td>
+                <td>string</td>
+                <td>Optional</td>
+                <td>Primary gazette link, court docket number, or archived order supporting the correction</td>
+              </tr>
+              <tr>
+                <td><code>name</code></td>
+                <td>string</td>
+                <td>Optional</td>
+                <td>Challenger's name or institutional affiliation</td>
+              </tr>
+              <tr>
+                <td><code>contact</code></td>
+                <td>string</td>
+                <td>Optional</td>
+                <td>Contact email for follow-up by the VERDICT ombudsman desk</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="code-block">
+            <pre><code>curl -X POST "http://127.0.0.1:8787/api/challenge" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "claimId": "claim_dipke_sibal_legal_fund",
+    "name": "Bar Council Observer",
+    "reason": "Clarify that the fund was announced as pro-bono counsel commitments rather than a direct bank wire.",
+    "evidenceUrl": "https://delhihighcourt.nic.in/case-order/2026/...",
+    "contact": "observer@legalresearch.org"
+  }'
+
+// Response (202 Accepted)
+{
+  "ok": true,
+  "challengeId": "challenge_4fa2e1c9-7681-4235-862a-e6a6428c9462",
+  "status": "queued_for_review",
+  "message": "Challenge submitted to editorial review queue. Canonical data is protected and not directly mutated."
+}</code></pre>
+          </div>
+        </section>
+
+        <!-- Section 6: Authenticated Research Runs -->
+        <section id="endpoint-research-run" class="doc-section">
+          <h2>6. Autonomous Research Execution</h2>
+          <p>
+            <span class="api-endpoint-badge post-badge">POST</span> <code>/api/research/run</code>
+            <span class="auth-badge">REQUIRES x-research-token</span>
+          </p>
+          <p>
+            Autonomous micro-agent sweep running across official gazettes, corporate registries (MCA), Wayback archives, and social platforms under strict verification budgets.
+          </p>
+          <div class="code-block">
+            <pre><code>curl -X POST "http://127.0.0.1:8787/api/research/run" \
+  -H "Content-Type: application/json" \
+  -H "x-research-token: $OSINT_RESEARCH_TOKEN" \
+  -d '{
+    "target": {
+      "canonicalName": "Sharjeel Imam",
+      "usernames": ["@sharjeel_imam"],
+      "organizations": ["Jawaharlal Nehru University"]
+    },
+    "question": "What public court filings and judicial statements are documented regarding bail hearings?",
+    "maxRounds": 3,
+    "taskBudget": 25
+  }'</code></pre>
+          </div>
+        </section>
+
+        <!-- Section 7: Cryptographic Manifests -->
+        <section id="integrity-manifest" class="doc-section">
+          <h2>7. Cryptographic Manifest &amp; Tamper Protection</h2>
+          <p>
+            VERDICT uses cryptographic SHA-256 content addressing for every archived document. Before any web page or PDF is cited in an Evidence Packet, its body bytes are digested:
+          </p>
+          <div class="code-block">
+            <pre><code>// Integrity Digest Verification Example
+const crypto = require('node:crypto');
+const fs = require('node:fs');
+
+const rawDocument = fs.readFileSync('archive/2026-cjp-charter.html');
+const hash = 'sha256-' + crypto.createHash('sha256').update(rawDocument).digest('hex');
+console.log('Document Verified:', hash === packet.contentHash);</code></pre>
+          </div>
+        </section>
+
+        <!-- Section 8: Terms & Attribution -->
+        <section id="terms-attribution" class="doc-section">
+          <h2>8. Terms of Use &amp; Attribution</h2>
+          <p>
+            VERDICT data is licensed under the <strong>Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)</strong> license.
+          </p>
+          <div class="callout-principle">
+            <strong>Mandatory Attribution:</strong> Any newsroom, legal brief, academic paper, or public visualization citing VERDICT API records must include:
+            <br><br>
+            <em>"Source: VERDICT Public Accountability Desk (verdict.is-an.org), Investigation ID #[ID]."</em>
+          </div>
+        </section>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand-col">
+        <h3 class="footer-logo">VERDICT</h3>
+        <p class="footer-tagline">
+          Evidence-First Public Accountability &amp; Open-Source Intelligence Platform.
+        </p>
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-muted); margin-top: 8px;">
+          Preserving provenance, verification standards, and epistemic boundaries.
+        </p>
+      </div>
+      <div class="footer-links-col">
+        <h4>Methodology &amp; Standards</h4>
+        <ul>
+          <li><a href="./methodology.html">Verification Standards</a></li>
+          <li><a href="./limitations.html">Research Limitations</a></li>
+          <li><a href="./faq.html">Frequently Asked Questions</a></li>
+          <li><a href="./glossary.html">Epistemic Glossary</a></li>
+          <li><a href="./about.html">About VERDICT Desk</a></li>
+        </ul>
+      </div>
+      <div class="footer-links-col">
+        <h4>Developer &amp; Research</h4>
+        <ul>
+          <li><a href="./api.html">Public Research API</a></li>
+          <li><a href="./case.html">Investigation Cases</a></li>
+          <li><a href="./dossier.html">Entity Dossiers</a></li>
+          <li><a href="./coverage.html">Research Coverage</a></li>
+          <li><a href="./contribute.html">Submit Lead / Evidence</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

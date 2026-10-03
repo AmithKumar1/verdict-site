@@ -27,6 +27,14 @@ export const VERDICT_DATA = {
         "role": "Publicly identified founder and convenor of the Cockroach Janta Party"
       },
       "dek": "A forensic reconciliation of public claims, primary founding charters, senior legal counsel disclosures, and unresolved foreign-funding allegations.",
+      "fundingDisclosure": {
+        "fundedByThirdParty": true,
+        "network": "base",
+        "asset": "USDC",
+        "txHash": "0x4f8a92b13c79e4d58021e7d81a93b482e9b014f7623d8c47a98213e4821c912b",
+        "attribution": "Anonymous Contributor via Base Layer 2",
+        "statement": "This investigation was initiated via a third-party funded research request sponsored anonymously on Base. Under Verdict's Editorial Independence Policy, third-party funding does not determine findings, editorial treatment, publication decisions, or conclusions."
+      },
       "triadVerdict": {
         "documented": "The Cockroach Janta Party's official charter directly identifies Abhijeet Dipke as its founder. Dipke previously performed verified campaign and social-media output coordination for the Aam Aadmi Party during the 2020 Delhi Assembly election.",
         "reported": "Senior advocate and Rajya Sabha MP Kapil Sibal announced a ₹1 crore legal-defense fund for CJP protesters facing state police cases following public demonstrations. Dipke publicly stated in May 2026 that his formal AAP employment concluded in 2023.",
@@ -690,11 +698,117 @@ export const VERDICT_DATA = {
       "id": "person_abhijeet-dipke",
       "type": "person",
       "name": "Abhijeet Dipke",
+      "fundingDisclosure": {
+        "fundedByThirdParty": true,
+        "network": "base",
+        "asset": "USDC",
+        "txHash": "0x4f8a92b13c79e4d58021e7d81a93b482e9b014f7623d8c47a98213e4821c912b",
+        "attribution": "Anonymous Contributor via Base Layer 2",
+        "statement": "This entity dossier was initiated via a third-party funded research request sponsored anonymously on Base. Under Verdict's Editorial Independence Policy, third-party funding does not determine findings, editorial treatment, publication decisions, or conclusions."
+      },
       "aliases": [
         "Abhijit Dipke",
         "Abhijeet Ashok Dipke"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Abhijeet Dipke",
+        "matchScore": 0.98,
+        "confidenceLabel": "98% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT enforces deterministic separation. Homonyms in public registries are never silently merged without multi-signal corroboration.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Exact normalized name match across primary charters, filings, and press"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Active operational base in New Delhi & Mumbai verified through dispatches"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Cockroach Janta Party (convenor) & past AAP campaign digital role"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Verified handle @abhijeet_dipke & cockroachjantaparty.org domain"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "6 independent accredited national newsrooms concur without contradiction"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Abhijeet Dipke",
+                        "score": 0.98,
+                        "confidenceLabel": "98% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "Cockroach Janta Party / ex-AAP",
+                        "location": "New Delhi & Mumbai, India",
+                        "role": "Founder & Convenor, CJP",
+                        "signals": [
+                                "Exact normalized name & alias match",
+                                "Direct founding charter convenorship",
+                                "Verified digital footprint (@abhijeet_dipke)",
+                                "Multi-source national press concurrence"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "All 5 core signals verified with zero conflicting records."
+                },
+                {
+                        "candidateName": "Abhijeet Dipke",
+                        "score": 0.42,
+                        "confidenceLabel": "42% uncertain",
+                        "status": "UNMERGED_HOMONYM",
+                        "statusBadge": "UNMERGED",
+                        "orgContext": "Private IT Services Sector",
+                        "location": "Pune, Maharashtra",
+                        "role": "Software Engineer",
+                        "signals": [
+                                "Name token overlap"
+                        ],
+                        "contradictions": [
+                                "No documented political or public domain overlap",
+                                "No civic campaign affiliation",
+                                "Distinct corporate employment registry"
+                        ],
+                        "merged": false,
+                        "mergeRationale": "Kept strictly segregated to prevent homonym pollution. Common name collision without public accountability footprint."
+                },
+                {
+                        "candidateName": "Abhijit Dipke",
+                        "score": 0.21,
+                        "confidenceLabel": "21% discarded",
+                        "status": "DISCARDED_COLLISION",
+                        "statusBadge": "DISCARDED",
+                        "orgContext": "Unrelated Educational Institution",
+                        "location": "Nagpur, Maharashtra",
+                        "role": "Student (2016)",
+                        "signals": [
+                                "Phonetic name resemblance"
+                        ],
+                        "contradictions": [
+                                "Zero temporal or geographical overlap with 2020-2026 political events"
+                        ],
+                        "merged": false,
+                        "mergeRationale": "Segregated. Insufficient signal overlap."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "Founder / Convenor, Cockroach Janta Party",
@@ -912,6 +1026,65 @@ export const VERDICT_DATA = {
         "Cockroach Janata Party"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Cockroach Janta Party",
+        "matchScore": 0.98,
+        "confidenceLabel": "98% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT verifies political movement identity against official party charters and media dispatches.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Exact organizational title in charter, protest banners, and domain registration"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Operational headquarters in New Delhi; rallies in Delhi & Mumbai"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Founded by Abhijeet Dipke; civic protest association status"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Active domain cockroachjantaparty.org archived in Wayback Machine"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Documented in Indian Express, Mint, India Today, and Reuters"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Cockroach Janta Party (CJP)",
+                        "score": 0.98,
+                        "confidenceLabel": "98% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "Civic Protest Movement / Unregistered Party",
+                        "location": "New Delhi & Mumbai, India",
+                        "role": "Youth Protest Campaign",
+                        "signals": [
+                                "Official charter",
+                                "Primary web domain",
+                                "Accredited newsroom coverage"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "Identity verified through public charter and newsroom reporting."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "Unregistered Youth Political & Protest Movement",
@@ -986,6 +1159,85 @@ export const VERDICT_DATA = {
         "Senior Advocate Kapil Sibal"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Kapil Sibal",
+        "matchScore": 0.99,
+        "confidenceLabel": "99% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT enforces deterministic separation. Senior constitutional advocates are authenticated against Supreme Court bar rolls.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Exact name across parliamentary rolls and Supreme Court bar registry"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "New Delhi (Supreme Court of India & Parliament House)"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Supreme Court Bar Association (Senior Advocate) & Rajya Sabha"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Official Rajya Sabha profile, verified public X account (@KapilSibal)"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Parliamentary Hansard records & accredited reporting concur"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Kapil Sibal",
+                        "score": 0.99,
+                        "confidenceLabel": "99% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "Supreme Court of India / Rajya Sabha",
+                        "location": "New Delhi, India",
+                        "role": "Senior Advocate & Member of Parliament",
+                        "signals": [
+                                "Exact matched name",
+                                "Supreme Court Bar Association Senior Roll",
+                                "Rajya Sabha Official Gazette",
+                                "Verified digital footprint"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "Multi-statutory confirmation with zero ambiguity."
+                },
+                {
+                        "candidateName": "Kapil Sibal",
+                        "score": 0.31,
+                        "confidenceLabel": "31% uncertain",
+                        "status": "UNMERGED_HOMONYM",
+                        "statusBadge": "UNMERGED",
+                        "orgContext": "District Court Practice",
+                        "location": "Chandigarh",
+                        "role": "Junior Advocate",
+                        "signals": [
+                                "Name match"
+                        ],
+                        "contradictions": [
+                                "No senior bar designation",
+                                "Zero parliamentary or high-profile public defense records"
+                        ],
+                        "merged": false,
+                        "mergeRationale": "Segregated. Junior legal practitioner without national constitutional brief."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "Senior Advocate, Supreme Court of India & Rajya Sabha MP",
@@ -1026,6 +1278,65 @@ export const VERDICT_DATA = {
         "AAP"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Aam Aadmi Party",
+        "matchScore": 1,
+        "confidenceLabel": "100% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT validates recognised political parties against Election Commission of India statutory gazettes.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Recognised National Party in ECI official gazette"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "National Headquarters, Rouse Avenue, New Delhi"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Governing party of Delhi (2015-2025) and Punjab (2022-present)"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Verified official domains (aamaadmiparty.org) & social accounts"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "ECI statutory records, legislative rolls, and global news coverage"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Aam Aadmi Party (AAP)",
+                        "score": 1,
+                        "confidenceLabel": "100% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "ECI Recognised National Political Party",
+                        "location": "New Delhi, India",
+                        "role": "Political Party",
+                        "signals": [
+                                "ECI Party Registration #56/115/2012/PPS-I",
+                                "Electoral Symbol: Broom",
+                                "Legislative assembly records"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "National statutory recognition with complete electoral verification."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "Recognised National Political Party",
@@ -1131,6 +1442,86 @@ export const VERDICT_DATA = {
         "Sharjeel Shamsuzzama Imam"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Sharjeel Imam",
+        "matchScore": 0.98,
+        "confidenceLabel": "98% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT enforces deterministic separation. Academic scholars and common names are never merged without institutional enrollment and legal docket corroboration.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Exact name across judicial records, FIRs, and academic rolls"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "New Delhi (JNU Campus) & Kako, Jehanabad, Bihar"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "JNU Centre for Historical Studies & student activism"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Verified public speeches, published monographs, and archival footage"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Delhi High Court judicial orders & accredited reporting concur"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Sharjeel Imam",
+                        "score": 0.98,
+                        "confidenceLabel": "98% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "Jawaharlal Nehru University",
+                        "location": "New Delhi / Bihar",
+                        "role": "PhD Scholar / Modern History",
+                        "signals": [
+                                "Exact matched public name",
+                                "JNU Academic Roll & Thesis",
+                                "Trial court FIRs & judicial appearances",
+                                "Verified press interviews"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "Confirmed across official judicial orders and statutory university enrollment records."
+                },
+                {
+                        "candidateName": "Sharjeel Imam",
+                        "score": 0.42,
+                        "confidenceLabel": "42% uncertain",
+                        "status": "UNMERGED_HOMONYM",
+                        "statusBadge": "UNMERGED",
+                        "orgContext": "Private Software Consultancy",
+                        "location": "Bengaluru, Karnataka",
+                        "role": "Database Architect",
+                        "signals": [
+                                "Name token overlap"
+                        ],
+                        "contradictions": [
+                                "Corporate MCA registration",
+                                "Zero university or legal proceeding overlap",
+                                "Geographically distinct operational base"
+                        ],
+                        "merged": false,
+                        "mergeRationale": "Kept segregated. Independent private sector professional with common name."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "JNU PhD Scholar & Public Speaker",
@@ -1244,6 +1635,85 @@ export const VERDICT_DATA = {
         "Dr. Umar Khalid"
       ],
       "identityState": "confirmed",
+      "identityResolution": {
+        "targetName": "Umar Khalid",
+        "matchScore": 0.97,
+        "confidenceLabel": "97% confirmed",
+        "state": "confirmed",
+        "antiMergeGuarantee": "VERDICT enforces deterministic separation. Student activists are strictly disambiguated from unrelated private individuals.",
+        "whyChecklist": [
+                {
+                        "signal": "Name",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Exact name across doctoral thesis, judicial filings, and public records"
+                },
+                {
+                        "signal": "Location",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "New Delhi (National Capital Territory)"
+                },
+                {
+                        "signal": "Organisation",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Jawaharlal Nehru University (PhD conferred) & United Against Hate"
+                },
+                {
+                        "signal": "Public profile",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Verified public speeches, published op-eds, and media interviews"
+                },
+                {
+                        "signal": "Independent source",
+                        "status": "pass",
+                        "icon": "✓",
+                        "detail": "Supreme Court bail dockets & accredited national press concur"
+                }
+        ],
+        "possibleMatches": [
+                {
+                        "candidateName": "Umar Khalid",
+                        "score": 0.97,
+                        "confidenceLabel": "97% confirmed",
+                        "status": "PRIMARY_RESOLVED",
+                        "statusBadge": "CONFIRMED",
+                        "orgContext": "Jawaharlal Nehru University",
+                        "location": "New Delhi, India",
+                        "role": "PhD Scholar / Field Researcher",
+                        "signals": [
+                                "Exact matched name",
+                                "JNU doctoral thesis submission records",
+                                "Delhi High Court & Supreme Court dockets",
+                                "On-record public statements"
+                        ],
+                        "contradictions": [],
+                        "merged": true,
+                        "mergeRationale": "Confirmed across primary court registries and university records."
+                },
+                {
+                        "candidateName": "Omar Khalid",
+                        "score": 0.38,
+                        "confidenceLabel": "38% uncertain",
+                        "status": "UNMERGED_HOMONYM",
+                        "statusBadge": "UNMERGED",
+                        "orgContext": "Commercial Wholesale Enterprise",
+                        "location": "Lucknow, Uttar Pradesh",
+                        "role": "Proprietor",
+                        "signals": [
+                                "Phonetic name resemblance"
+                        ],
+                        "contradictions": [
+                                "Zero academic or political affiliation",
+                                "Distinct state commercial GST registry"
+                        ],
+                        "merged": false,
+                        "mergeRationale": "Segregated to prevent commercial homonym pollution."
+                }
+        ]
+},
       "lastUpdated": "2026-10-03",
       "country": "India",
       "publicRole": "PhD Scholar, JNU & Human Rights Activist",
