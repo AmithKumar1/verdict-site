@@ -27,11 +27,22 @@ jobs:
       - name: Build static site
         run: |
           mkdir -p site/css site/js/vendor
+
           cp index.html contribute.html dossier.html about.html faq.html glossary.html limitations.html methodology.html site/
           cp robots.txt sitemap.xml CNAME site/
+
           cp css/style.css css/dossier.css css/dossier-v2.css site/css/
           cp js/app.js js/data.js js/dossier.js js/smooth-scroll.js site/js/
           cp js/vendor/lenis.min.js site/js/vendor/
+
+          # Case bundle is publication-safe and optional until it exists in the
+          # public repository. When present, publish it automatically.
+          for f in case.html; do
+            if [ -f "$f" ]; then cp "$f" site/; fi
+          done
+          for f in js/case.js css/case.css; do
+            if [ -f "$f" ]; then cp "$f" "site/$f"; fi
+          done
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
